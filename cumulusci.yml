@@ -8,6 +8,12 @@ project:
         default_branch: 'main'
     source_format: sfdx
 
+orgs:
+    scratch:
+        nzc:
+            config_file: config/project-scratch-def.json
+            days: 30
+
 tasks:
     robot:
         options:
@@ -23,3 +29,22 @@ tasks:
     run_tests:
         options:
             required_org_code_coverage_percent: 75
+
+flows:
+    setup_nzc:
+        group: net zero
+        description: assigns PSLs, perms, pushes industriessettings file
+        steps: 
+            1:
+                task: assign_permission_set_licenses
+                options:
+                    api_names: NetZeroCloudUserPsl, DataProcessingEnginePsl, ManufacturingAdvancedAccountForecastPsl
+            2:
+                task: assign_permission_sets
+                options:
+                    api_names: NetZeroManager, DataProcessingEngineUser, ManufacturingAdvancedAccountForecastPsl
+            3:
+                task: dx
+                options:
+                    command: force:source:deploy
+                    extra: -p force-app/main/default/settings/Industries.settings-meta.xml

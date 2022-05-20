@@ -1,13 +1,34 @@
 {
-  "orgName": "stephanie.ho company",
-  "edition": "Developer",
-  "features": ["EnableSetPasswordInApi"],
+  "orgName": "net zero growth scratch",
+  "edition": "Enterprise",
+  "features": [
+    "EnableSetPasswordInApi",
+    "Communities",
+    "Sites",
+    "DevelopmentWave",
+    "ForceComPlatform",
+    "RecordTypes",
+    "SustainabilityApp",
+    "TCRMForSustainability"
+  ],
   "settings": {
     "lightningExperienceSettings": {
       "enableS1DesktopEnabled": true
     },
     "mobileSettings": {
       "enableS1EncryptedStoragePref2": false
+    },
+    "communitiesSettings": {
+      "enableNetworksEnabled": true
+    },
+    "pathAssistantSettings": {
+      "pathAssistantEnabled": true
+    },
+    "securitySettings": {
+      "enableAdminLoginAsAnyUser": true,
+      "sessionSettings": {
+        "forceRelogin": false
+      }
     }
   }
 }
