@@ -1,0 +1,25 @@
+minimum_cumulusci_version: '3.56.0'
+project:
+    name: nzc-cci-template
+    package:
+        name: pkg
+        api_version: '54.0'
+    git:
+        default_branch: 'main'
+    source_format: sfdx
+
+tasks:
+    robot:
+        options:
+            suites: robot/nzc-cci-template/tests
+            options:
+                outputdir: robot/nzc-cci-template/results
+
+    robot_testdoc:
+        options:
+            path: robot/nzc-cci-template/tests
+            output: robot/nzc-cci-template/doc/nzc-cci-template_tests.html
+
+    run_tests:
+        options:
+            required_org_code_coverage_percent: 75
