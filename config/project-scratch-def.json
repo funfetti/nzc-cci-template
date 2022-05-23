@@ -1,6 +1,7 @@
 {
   "orgName": "net zero growth scratch",
   "edition": "Enterprise",
+  "adminEmail": "YOUREMAILHERE@DOMAIN.COM",
   "features": [
     "EnableSetPasswordInApi",
     "Communities",
@@ -25,6 +26,7 @@
       "pathAssistantEnabled": true
     },
     "securitySettings": {
+      "enableAuditFieldsInactiveOwner": true,
       "enableAdminLoginAsAnyUser": true,
       "sessionSettings": {
         "forceRelogin": false

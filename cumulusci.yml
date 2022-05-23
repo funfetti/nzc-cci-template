@@ -30,6 +30,17 @@ tasks:
         options:
             required_org_code_coverage_percent: 75
 
+tasks:
+    update_admin_profile:
+        options:
+            record_types:
+                - record_type: "StnryAssetEnvrSrc.Commercial_Building" 
+                  default: true
+                - record_type: "StnryAssetEnvrSrc.Data_Center"
+                - record_type: "BldgEnrgyIntensity.Building_Energy_Intensity"
+                  default: true
+                - record_type: "BldgEnrgyIntensity.Regional_Building_Energy_Intensity"
+
 flows:
     setup_nzc:
         group: net zero
@@ -43,8 +54,20 @@ flows:
                 task: assign_permission_sets
                 options:
                     api_names: NetZeroManager, DataProcessingEngineUser, ManufacturingAdvancedAccountForecastPsl
-            3:
+            3: # turning on Net Zero Setup toggles
                 task: dx
                 options:
                     command: force:source:deploy
                     extra: -p force-app/main/default/settings/Industries.settings-meta.xml
+            4: # loading record types
+                task: dx
+                options: 
+                    command: sfdx force:data:tree:import
+                    extra: -f datasets/RecordType.json
+            5. # setting admin perms
+                task: update_admin_profile
+            6. # opens up the record type mappings! Settings > Net Zero > Record Type Configurations
+                task: dx
+                options:
+                    command: sfdx force:org:open 
+                    extra: -p lightning/setup/BldgEnrgyIntensityCnfg/home
