@@ -14,13 +14,17 @@ Other Emissions Factor Set:
 Other Emissions Factor Set Item:
     sf_object: OtherEmssnFctrSetItem
     fields: 
+        - Name
         - CalorificValue
         - CalorificValueUnit
         - Ch4EmissionFactor
         - Ch4EmissionFactorUnit
         - Co2EmissionFactor
         - Co2EmissionFactorUnit
+        - Co2eEmissionFactorInTco2eGj
+        - Co2eEmissionFactorInTco2eMwh
         - FuelType
+        - LastModifiedDate
         - N2oEmissionFactor
         - N2oEmissionFactorUnit
         - SuppliedEmissionsFactor
@@ -118,6 +122,7 @@ Building Energy Intensity:
         - MaximumBuildingSizeInSqft
         - MinimumBuildingSizeInM2
         - MinimumBuildingSizeInSqft
+        - IsRecordLocked
         - RegionalDivision
         - State
         - AreSysGenEnrgyUseRecIncluded
@@ -131,11 +136,11 @@ Carbon Emissions Scope Allocations:
     fields: 
         - Name
 
-#Annual Emissions Inventory:
-#    sf_object: AnnualEmssnInventory
-#    fields:
-#        - Name
-#        - Year
+Annual Emissions Inventory:
+    sf_object: AnnualEmssnInventory
+    fields:
+        - Name
+        - Year
 
 Account:
     sf_object: Account
@@ -201,6 +206,7 @@ Stationary Asset Carbon Footprint:
         - DataGapStatus
         - EndDate
         - FootprintStage
+        - IsRecordLocked
         - ReportingDate
         - ReportingYear
         #- ReportingYearType
@@ -217,7 +223,8 @@ Stationary Asset Carbon Footprint:
     lookups:
         StnryAssetEnvrSrcId:
             table: StnryAssetEnvrSrc
-        #AnnualEmssnInventoryId: table: AnnualEmssnInventory
+        AnnualEmssnInventoryId:
+            table: AnnualEmssnInventory
         BuildingEnergyIntensityId:
             table: BldgEnrgyIntensity
         PrevYrAnnlCarbonFootprintId:
@@ -235,6 +242,7 @@ Stationary Asset Energy Use:
         - FuelConsumption
         - FuelConsumptionUnit
         - FuelType
+        - IsRecordLocked
         - RenewableEnergyType
         - StartDate
         - SuplScope1Emissions

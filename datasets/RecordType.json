@@ -1,0 +1,40 @@
+{
+    "records": [
+        {
+            "attributes": {
+                "type": "RecordType",
+                "referenceId": "RecordTypeRef1"
+            },
+            "Name": "Commercial Building",
+            "DeveloperName": "Commercial_Building",
+            "SobjectType": "StnryAssetEnvrSrc"
+        },
+        {
+            "attributes": {
+                "type": "RecordType",
+                "referenceId": "RecordTypeRef2"
+            },
+            "Name": "Data Center",
+            "DeveloperName": "Data_Center",
+            "SobjectType": "StnryAssetEnvrSrc"
+        },
+        {
+            "attributes": {
+                "type": "RecordType",
+                "referenceId": "RecordTypeRef3"
+            },
+            "Name": "Regional Building Energy Intensity",
+            "DeveloperName": "Regional_Building_Energy_Intensity",
+            "SobjectType": "BldgEnrgyIntensity"
+        },
+        {
+            "attributes": {
+                "type": "RecordType",
+                "referenceId": "RecordTypeRef4"
+            },
+            "Name": "Building Energy Intensity",
+            "DeveloperName": "Building_Energy_Intensity",
+            "SobjectType": "BldgEnrgyIntensity"
+        }
+    ]
+}
