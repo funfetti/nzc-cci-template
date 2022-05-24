@@ -8,13 +8,25 @@ all configs and all vanilla bby
 2. run the custom nzc cci flow to add a bunch of sfdx configs and perms
 `cci flow run setup_nzc --org <org_name>`
 3. open the org in a browser using `cci org browser <org_name>`
-4. load stationary asset data using `cci `
-5. in setup, create record types for commercial buildings and vehicles and map them to the types in net zero cloud setup
+4. in setup, create record types for commercial buildings and vehicles and map them to the types in net zero cloud setup
+5. load base data using `cci task run load_dataset --org <orgname>`
 
-cci task run load_dataset --org <orgname>
+
+## other useful commands i'm going to forget if i don't write them down 
 
 cci task run extract_dataset --org nzc
 
+sfdx force:data:tree:export -q "SELECT ID, Name, DeveloperName, SobjectType, Description FROM RecordType" -d datasets
+
+sfdx force:data:tree:import -f datasets/RecordType.json
+
+cci task run extract_dataset -o mapping datasets/rtconfig.yml -o sql_path datasets/rtconfig.sql
+
+cci task run extract_dataset -o mapping datasets/bldgs.yml -o sql_path datasets/1-bldgs.sql
+
+cci task run extract_dataset -o mapping datasets/vehicles.yml -o sql_path datasets/2-vehicles.sql
+
+cci task run load_dataset --org nzc -o mapping datasets/vehicles.yml -o sql_path datasets/2-vehicles.sql
 
 ###
 
