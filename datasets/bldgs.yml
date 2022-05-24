@@ -1,0 +1,259 @@
+Other Emissions Factor Set:
+    sf_object: OtherEmssnFctrSet
+    fields: 
+        - Name
+        - Ch4GlblWarmingPot
+        - RefrigerantLeakageRtInKgItKwh
+        - EmissionFactorDataSource
+        - EmissionFactorUpdateYear
+        - N2oGlblWarmingPot
+        - RefrigerantLeakageRtInKgM2
+        - RefrigerantLeakageRtInKgSqft
+    soql_filter: Id IN (Select OtherEmssnFctrId from StnryAssetEnvrSrc)
+
+Other Emissions Factor Set Item:
+    sf_object: OtherEmssnFctrSetItem
+    fields: 
+        - CalorificValue
+        - CalorificValueUnit
+        - Ch4EmissionFactor
+        - Ch4EmissionFactorUnit
+        - Co2EmissionFactor
+        - Co2EmissionFactorUnit
+        - FuelType
+        - N2oEmissionFactor
+        - N2oEmissionFactorUnit
+        - SuppliedEmissionsFactor
+        - SuppliedEmissionsFactorUnit
+    lookups:
+        ParentEmissionFactorId:
+            table: OtherEmssnFctrSet
+    soql_filter: ParentEmissionFactorId IN (Select OtherEmssnFctrId from StnryAssetEnvrSrc)
+
+Electricity Emissions Factor Set:
+    sf_object: ElectricityEmssnFctrSet
+    fields:
+        - Name
+        - Ch4EmissionRate
+        - Ch4EmissionRateUnit
+        - City
+        - Co2EmissionRate
+        - Co2EmissionRateUnit
+        - Co2eEmissionRate
+        - Co2eEmissionRateUnit
+        - Country
+        - EmissionFactorDataSource
+        - GenlConversionFctrRevisionDate
+        - EmissionFactorUpdateYear
+        - GridSubregion
+        - LocationBasedBiomassMixPct
+        - LocationBasedCoalMixPct
+        - LocationBasedGasMixPct
+        - LocBasedGeothermalMixPct
+        - LocationBasedHydroMixPct
+        - LocationBasedNuclearMixPct
+        - LocationBasedOilMixPct
+        - LocBasedOtherFossilFuelMixPct
+        - LocationBasedOtherFuelMixPct
+        - LocationBasedSolarMixPct
+        - LocationBasedWindMixPct
+        - MarketBasedBiomassMixPct
+        - MktBsdCo2eEmissionRate
+        - MktBsdCo2eEmissionRateUnit
+        - MarketBasedCoalMixPct
+        - MarketBasedGasMixPct
+        - MktBasedGeothermalMixPct
+        - MarketBasedHydroMixPct
+        - MarketBasedNuclearMixPct
+        - MarketBasedOilMixPct
+        - MktBasedOtherFossilFuelMixPct
+        - MarketBasedOtherFuelMixPct
+        - MarketBasedSolarMixPct
+        - MarketBasedWindMixPct
+        - N2oEmissionRate
+        - N2oEmissionRateUnit
+        - State
+    lookups:
+        OtherEmssnFctrId: 
+            table: OtherEmssnFctrSet
+            after: OtherEmssnFctrSet
+    soql_filter: Id IN (Select ElectricityEmssnFctrId from StnryAssetEnvrSrc)
+
+Refrigerant Emission Factor:
+    sf_object: RefrigerantEmssnFctr
+    fields: 
+        - Name
+        - EmissionFactorDataSource
+        - EmissionFactorUpdateYear
+        - GlblWarmingPotInKgCo2eKg
+    soql_filter: Id IN (Select RefrigerantEmssnFctrId from StnryAssetEnvrSrc)
+
+Building Size Category:
+    sf_object: BldgSizeCategory
+    fields: 
+        - Name
+        - MaximumSize
+        - MinimumSize
+        - SizeUnit
+    
+Building Energy Intensity:
+    sf_object: BldgEnrgyIntensity
+    fields: 
+        - Name
+        - RecordTypeId
+        - AnnualEnergyIntensityInKwhM2
+        - AnnualEnergyIntensityInKwhSqft
+        - AveragePowerUsageEffectiveness
+        - AveragingWindowEndDate
+        - AveragingWindowStartDate
+        - BuildingAssetType
+        - BldgEnergyIntensityIdentifier
+        - BuildingSize
+        - BusinessRegion
+        - Country
+        - EmissionFactorDataSource
+        - EmissionFactorUpdateYear
+        - LastCalculatedDate
+        - MaximumBuildingSizeInM2
+        - MaximumBuildingSizeInSqft
+        - MinimumBuildingSizeInM2
+        - MinimumBuildingSizeInSqft
+        - RegionalDivision
+        - State
+        - AreSysGenEnrgyUseRecIncluded
+    lookups:
+        BuildingSizeCategoryId:
+            table: BldgSizeCategory
+    soql_filter: Id IN (Select RegionalBldgEnergyIntensityId from StnryAssetEnvrSrc)
+
+Carbon Emissions Scope Allocations:
+    sf_object: CrbnEmssnScopeAlloc
+    fields: 
+        - Name
+
+#Annual Emissions Inventory:
+#    sf_object: AnnualEmssnInventory
+#    fields:
+#        - Name
+#        - Year
+
+Account:
+    sf_object: Account
+    fields: 
+        - Name
+    soql_filter: Id IN (Select AccountId from Supplier)
+
+Supplier:
+    sf_object: Supplier
+    fields:
+        - Name 
+        - CompanyRelationshipType
+    lookups:
+        AccountId:
+            table: Account
+    soql_filter: Id IN (Select SupplierId from StnryAssetEnrgyUse)
+
+Stationary Asset Environmental Source:
+    sf_object: StnryAssetEnvrSrc
+    fields: 
+        - Name
+        - RecordTypeId
+        - BusinessRegion
+        - City
+        - IsCompanyOwnedAsset
+        - Country
+        - Description
+        - LeaseExpirationDate
+        - LeaseIdentifier
+        - IsLeedCertified
+        - OccupiedFloorArea
+        - OccupiedFloorAreaUnit
+        - PostalCode
+        - PremiseIdentifier
+        - State
+        - StationaryAssetIdentifier
+        - StationaryAssetType
+        - StreetAddress
+        - StreetAddress2
+        - TotalFloorArea
+        - TotalFloorAreaUnit
+    lookups:
+        CrbnEmssnScopeAllocId: 
+            table: CrbnEmssnScopeAlloc
+        ElectricityEmssnFctrId:
+            table: ElectricityEmssnFctrSet
+        OtherEmssnFctrId:
+            table: OtherEmssnFctrSet
+        ParentEnvironmentalSourceId:
+            table: StnryAssetEnvrSrc
+            after: StnryAssetEnvrSrc
+        RefrigerantEmssnFctrId: 
+            table: RefrigerantEmssnFctr
+        RegionalBldgEnergyIntensityId:
+            table: BldgEnrgyIntensity
+
+Stationary Asset Carbon Footprint:
+    sf_object: StnryAssetCrbnFtprnt
+    fields:
+        - Name
+        - AllocationStatus
+        - AuditApprovalStatus
+        - DataGapStatus
+        - EndDate
+        - FootprintStage
+        - ReportingDate
+        - ReportingYear
+        #- ReportingYearType
+        - StartDate
+        - SuplScope1Emissions
+        - SuplScope2LocationBasedEmssn
+        - SuplScope2MarketBasedEmssn
+        - SuplScope3DnstrmEmissions
+        - SuplScope3UpstrmEmissions
+        #- OccupiedFloorArea
+        #- OccupiedFloorAreaUnit
+        #- TotalFloorArea
+        #- TotalFloorAreaUnit
+    lookups:
+        StnryAssetEnvrSrcId:
+            table: StnryAssetEnvrSrc
+        #AnnualEmssnInventoryId: table: AnnualEmssnInventory
+        BuildingEnergyIntensityId:
+            table: BldgEnrgyIntensity
+        PrevYrAnnlCarbonFootprintId:
+            table: StnryAssetCrbnFtprnt
+            after: StnryAssetCrbnFtprnt
+        # RegionalBldgEnergyIntensityId: table: BldgEnrgyIntensity
+
+Stationary Asset Energy Use:
+    sf_object: StnryAssetEnrgyUse
+    fields:
+        - Name
+        - AllocatedRenewableEnergyInKwh
+        - CarbonFootprintReportDate
+        - EndDate
+        - FuelConsumption
+        - FuelConsumptionUnit
+        - FuelType
+        - RenewableEnergyType
+        - StartDate
+        - SuplScope1Emissions
+        - SuplScope2LocationBasedEmssn
+        - SuplScope2MarketBasedEmssn
+        - SuplScope3DnstrmEmissions
+        - SuplScope3UpstrmEmissions
+        #- IsCompanyOwnedAsset
+        #- OccupiedFloorArea
+        #- OccupiedFloorAreaUnit
+        #- TotalFloorArea
+        #- TotalFloorAreaUnit
+    lookups:
+        StnryAssetEnvrSrcId:
+            table: StnryAssetEnvrSrc
+        StnryAssetCrbnFtprntId:
+            table: StnryAssetCrbnFtprnt
+        SupplierId:
+            table: Supplier
+        #ElectricityEmissionFactorsId: table: ElectricityEmssnFctrSet
+        #OtherEmssnFctrId: table: OtherEmssnFctrSet
+        #RefrigerantEmssnFctrId: table: RefrigerantEmssnFctr

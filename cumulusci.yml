@@ -40,8 +40,21 @@ tasks:
                 - record_type: "BldgEnrgyIntensity.Building_Energy_Intensity"
                   default: true
                 - record_type: "BldgEnrgyIntensity.Regional_Building_Energy_Intensity"
+                - record_type: "VehicleAssetEmssnSrc.Fleet_Vehicle"
+                  default: true
+                - record_type: "VehicleAssetEmssnSrc.Private_Jet"
 
 flows:
+    extract_record_type:
+        group: data
+        description: extracts record type information from org
+        steps:
+            1:
+                task: dx
+                options: 
+                    command: force:data:tree:export
+                    extra: -q "SELECT ID, Name, DeveloperName, SobjectType, Description FROM RecordType" -d datasets 
+    
     setup_nzc:
         group: net zero
         description: assigns PSLs, perms, pushes industriessettings file
@@ -62,12 +75,30 @@ flows:
             4: # loading record types
                 task: dx
                 options: 
-                    command: sfdx force:data:tree:import
+                    command: force:data:tree:import
                     extra: -f datasets/RecordType.json
-            5. # setting admin perms
+            5: # setting admin perms
                 task: update_admin_profile
-            6. # opens up the record type mappings! Settings > Net Zero > Record Type Configurations
+            6: # opens up the record type mappings! Settings > Net Zero > Record Type Configurations
                 task: dx
                 options:
                     command: sfdx force:org:open 
                     extra: -p lightning/setup/BldgEnrgyIntensityCnfg/home
+        
+    # cant auotmate vehicles and blgs until the mappings are api enabled :/
+    # load_vehicles:
+    #     group: net zero
+    #     description: assigns perms, load vehicles
+    #     steps:
+    #         1: # loading record types
+    #             task: dx
+    #             options: 
+    #                 command: force:data:tree:import
+    #                 extra: -f datasets/RecordType.json
+    #         2: # setting admin perms
+    #             task: update_admin_profile
+    #         3: # push data
+    #             task: load_dataset
+    #             options:
+    #                 mapping: datasets/vehicles.yml 
+    #                 sql_path: datasets/2-vehicles.sql

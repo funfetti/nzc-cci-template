@@ -1,0 +1,26 @@
+Building Energy Intensity Config:
+    sf_object: BldgEnrgyIntensityCnfg
+    fields:
+        - BuildingEnergyIntensityType
+        - DeveloperName
+        - MasterLabel
+        - RecordTypeId
+
+#Stationary Asset Source Record Type Config:
+#    sf_object: StnryAssetEnvSrcCnfg
+#        fields:
+#            - DeveloperName
+#            - MasterLabel
+#            - RecordTypeId
+#            - StationaryAssetType
+
+#Vehicle Asset Source Record Type Config:
+#   sf_object: VehicleAssetEmssnSrcCnfg
+#        fields:
+#            - DeveloperName
+#            - MasterLabel
+#            - RecordTypeId
+#            - VehicleAssetType
+
+
+

@@ -7,7 +7,8 @@
             },
             "Name": "Commercial Building",
             "DeveloperName": "Commercial_Building",
-            "SobjectType": "StnryAssetEnvrSrc"
+            "SobjectType": "StnryAssetEnvrSrc",
+            "Description": "Commercial Buildings"
         },
         {
             "attributes": {
@@ -16,7 +17,8 @@
             },
             "Name": "Data Center",
             "DeveloperName": "Data_Center",
-            "SobjectType": "StnryAssetEnvrSrc"
+            "SobjectType": "StnryAssetEnvrSrc",
+            "Description": "Data Centers"
         },
         {
             "attributes": {
@@ -25,7 +27,8 @@
             },
             "Name": "Regional Building Energy Intensity",
             "DeveloperName": "Regional_Building_Energy_Intensity",
-            "SobjectType": "BldgEnrgyIntensity"
+            "SobjectType": "BldgEnrgyIntensity",
+            "Description": "Use for data obtained from external sources or standards bodies, such as Commercial Buildings Energy Consumption Survey (CBECS)"
         },
         {
             "attributes": {
@@ -34,7 +37,28 @@
             },
             "Name": "Building Energy Intensity",
             "DeveloperName": "Building_Energy_Intensity",
-            "SobjectType": "BldgEnrgyIntensity"
+            "SobjectType": "BldgEnrgyIntensity",
+            "Description": "Use for records created by computing average intensities by using your energy consumption data"
+        },
+        {
+            "attributes": {
+                "type": "RecordType",
+                "referenceId": "RecordTypeRef5"
+            },
+            "Name": "Fleet Vehicle",
+            "DeveloperName": "Fleet_Vehicle",
+            "SobjectType": "VehicleAssetEmssnSrc",
+            "Description": "Trucks, cars, buses, heavy machinery, etc."
+        },
+        {
+            "attributes": {
+                "type": "RecordType",
+                "referenceId": "RecordTypeRef6"
+            },
+            "Name": "Private Jet",
+            "DeveloperName": "Private_Jet",
+            "SobjectType": "VehicleAssetEmssnSrc",
+            "Description": "Private Jets and Airplanes"
         }
     ]
 }

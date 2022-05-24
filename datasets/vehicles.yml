@@ -1,0 +1,126 @@
+Other Emissions Factor Set:
+    sf_object: OtherEmssnFctrSet
+    fields: 
+        - Name
+        - Ch4GlblWarmingPot
+        - RefrigerantLeakageRtInKgItKwh
+        - EmissionFactorDataSource
+        - EmissionFactorUpdateYear
+        - N2oGlblWarmingPot
+        - RefrigerantLeakageRtInKgM2
+        - RefrigerantLeakageRtInKgSqft
+    soql_filter: Id IN (Select OtherEmssnFctrId from VehicleAssetEmssnSrc)
+
+Other Emissions Factor Set Item:
+    sf_object: OtherEmssnFctrSetItem
+    fields: 
+        - CalorificValue
+        - CalorificValueUnit
+        - Ch4EmissionFactor
+        - Ch4EmissionFactorUnit
+        - Co2EmissionFactor
+        - Co2EmissionFactorUnit
+        - FuelType
+        - N2oEmissionFactor
+        - N2oEmissionFactorUnit
+        - SuppliedEmissionsFactor
+        - SuppliedEmissionsFactorUnit
+    lookups:
+        ParentEmissionFactorId:
+            table: OtherEmssnFctrSet
+    soql_filter: ParentEmissionFactorId IN (Select OtherEmssnFctrId from VehicleAssetEmssnSrc)
+
+Account:
+    sf_object: Account
+    fields: 
+        - Name
+    soql_filter: Id IN (Select AccountId from Supplier)
+
+Supplier:
+    sf_object: Supplier
+    fields:
+        - Name 
+        - CompanyRelationshipType
+    lookups:
+        AccountId:
+            table: Account
+    soql_filter: Id IN (Select SupplierId from VehicleAssetEnrgyUse)
+
+Vehicle Asset Emissions Source:
+    sf_object: VehicleAssetEmssnSrc
+    fields:
+        - Name
+        - RecordTypeId
+        - BusinessRegion
+        - City
+        - Country
+        - CrbnEmssnScopeAlloc
+        - Description
+        - IsCompanyOwnedAsset
+        - LeaseExpirationDate
+        - LeaseIdentifier
+        - PostalCode
+        - State
+        - StreetAddress
+        - StreetAddress2
+        - VehicleIdentifier
+        - VehicleType
+    lookups:
+        OtherEmssnFctrId:
+            table: OtherEmssnFctrSet
+
+Vehicle Asset Carbon Footprint:
+    sf_object: VehicleAssetCrbnFtprnt
+    fields: 
+        - Name
+        - AuditApprovalStatus
+        - EndDate
+        - FootprintStage
+        - ReportingDate
+        - ReportingYear
+        #- ReportingYearType
+        - StartDate
+        - SuplScope1Emissions
+        - SuplScope2LocationBasedEmssn
+        - SuplScope2MarketBasedEmssn
+        - SuplScope3DnstrmEmissions
+        - SuplScope3UpstrmEmissions
+        - VehicleType
+    lookups:
+        VehicleAssetEmssnSrcId:
+            table: VehicleAssetEmssnSrc
+        #AnnualEmssnInventoryId: table: AnnualEmssnInventory
+
+Vehicle Asset Energy Use:
+    sf_object: VehicleAssetEnrgyUse
+    fields:
+        - Name
+        - AircraftFuelEconomy
+        - AircraftFuelEconomyUnit
+        - AircraftType
+        - CarbonFootprintReportDate
+        - CostCenter
+        - Distance
+        - DistanceUnit
+        - EndDate
+        - FlightDate
+        - FlightDurationInHours
+        - FuelConsumption
+        - FuelConsumptionUnit
+        - FuelEfficiency
+        - FuelEfficiencyUnit
+        - FuelType
+        - StartDate
+        - SuplScope1Emissions
+        - SuplScope2LocationBasedEmssn
+        - SuplScope2MarketBasedEmssn
+        - SuplScope3DnstrmEmissions
+        - SuplScope3UpstrmEmissions
+    lookups:
+        VehicleAssetEmssnSrcId:
+            table: VehicleAssetEmssnSrc
+        VehicleAssetCrbnFtprntId:
+            table: VehicleAssetCrbnFtprnt
+        SupplierId:
+            table: Supplier
+        #- OtherEmssnFctrId: table: OtherEmssnFctrSet
