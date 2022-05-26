@@ -31,7 +31,6 @@ cci task run load_dataset --org nzc -o mapping datasets/vehicles.yml -o sql_path
 ###
 
 to do:
-- vehicles
 - waste
 - freight
 - biz travel

@@ -72,7 +72,7 @@ flows:
                 options:
                     command: force:source:deploy
                     extra: -p force-app/main/default/settings/Industries.settings-meta.xml
-            4: # loading record types
+            4: # loading record types - NOT TESTED YET
                 task: dx
                 options: 
                     command: force:data:tree:import
