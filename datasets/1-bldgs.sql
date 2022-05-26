@@ -106,10 +106,12 @@ INSERT INTO "ElectricityEmssnFctrSet" VALUES(1,'RFCW - RFC West - eGRID2020','0.
 INSERT INTO "ElectricityEmssnFctrSet" VALUES(2,'Germany - IEA 2019','0.012','G_PER_KWH','','344.5','G_PER_KWH','346.17','G_PER_KWH','DE','Based on IEA data from the IEA (2021) Emissions Factors,  http://wds.iea.org/wds/pdf/WorldCO2_documentation.pdf. All rights reserved; as modified by Salesforce. 
 
 NOTE: IEA gives emissions factor data for CO2, CH4 and N2O. Values for CH4 and N2O are given by IEA in converted CO2e units, where IEA has applied global warming potentials (GWP) from the 4th Assessment of the IPCC. Salesforce has modified this data to show unconverted CH4 and N2O values in the Location-Based Emissions Factors page section. Salesforce''s value for Total CO2e uses GWP values from IPCC AR5.','','2021','','','','','','','','','','100.0','','','','346.17','G_PER_KWH','','','','','','','','100.0','','','0.005033557','G_PER_KWH','','1');
-INSERT INTO "ElectricityEmssnFctrSet" VALUES(3,'CAMX - WECC California - eGRID2020','0.032','LBS_PER_MWH','','513.5','LBS_PER_MWH','515.5','LBS_PER_MWH','US','https://www.epa.gov/egrid/egrid-2019-summary-tables','','2019','CAMX','2.8','3.6','47.1','4.2','8.5','8.3','0.0','0.8','0.3','17.3','7.2','2.8','515.5','LBS_PER_MWH','3.6','47.1','4.2','8.5','8.3','0.0','0.8','0.3','17.3','7.2','0.004','LBS_PER_MWH','','1');
+INSERT INTO "ElectricityEmssnFctrSet" VALUES(3,'Canada - Ontario - CA-ON - electricityMap 2020','','G_PER_KWH','','','G_PER_KWH','43.4','G_PER_KWH','CA','Based on data from electricityMap API, a global electricity emissions database. For more information, please visit api.electricitymap.org.','','2020','Ontario','0.228580876','0.0','5.84443401','0.0','25.19201171','58.61545076','0.0','','0.0','0.363284871','9.75623777','0.228580876','43.4','G_PER_KWH','0.0','5.84443401','0.0','25.19201171','58.61545076','0.0','','0.0','0.363284871','9.75623777','','G_PER_KWH','','1');
+INSERT INTO "ElectricityEmssnFctrSet" VALUES(4,'CAMX - WECC California - eGRID2020','0.032','LBS_PER_MWH','','513.5','LBS_PER_MWH','515.5','LBS_PER_MWH','US','https://www.epa.gov/egrid/egrid-2019-summary-tables','','2019','CAMX','2.8','3.6','47.1','4.2','8.5','8.3','0.0','0.8','0.3','17.3','7.2','2.8','515.5','LBS_PER_MWH','3.6','47.1','4.2','8.5','8.3','0.0','0.8','0.3','17.3','7.2','0.004','LBS_PER_MWH','','1');
 CREATE TABLE "OtherEmssnFctrSet" (
 	id INTEGER NOT NULL, 
 	"Name" VARCHAR(255), 
+	cci_extid__c VARCHAR(255), 
 	"Ch4GlblWarmingPot" VARCHAR(255), 
 	"RefrigerantLeakageRtInKgItKwh" VARCHAR(255), 
 	"EmissionFactorDataSource" VARCHAR(255), 
@@ -119,7 +121,7 @@ CREATE TABLE "OtherEmssnFctrSet" (
 	"RefrigerantLeakageRtInKgSqft" VARCHAR(255), 
 	PRIMARY KEY (id)
 );
-INSERT INTO "OtherEmssnFctrSet" VALUES(1,'Stationary Fuel Conversion Factors - DEFRA EPA 2021','28.0','1.66e-06','https://www.epa.gov/sites/default/files/2021-04/documents/emission-factors_apr2021.pdf
+INSERT INTO "OtherEmssnFctrSet" VALUES(1,'Stationary Fuel Conversion Factors - DEFRA EPA 2021','stationary21','28.0','1.66e-06','https://www.epa.gov/sites/default/files/2021-04/documents/emission-factors_apr2021.pdf
 
 https://www.gov.uk/government/publications/greenhouse-gas-reporting-conversion-factors-2021','2021','265.0','0.249359521292','0.02316628');
 CREATE TABLE "OtherEmssnFctrSetItem" (
@@ -155,8 +157,10 @@ CREATE TABLE "RefrigerantEmssnFctr" (
 	"GlblWarmingPotInKgCo2eKg" VARCHAR(255), 
 	PRIMARY KEY (id)
 );
-INSERT INTO "RefrigerantEmssnFctr" VALUES(1,'R134a - IPCC AR4 2007','https://www.gov.uk/government/publications/greenhouse-gas-reporting-conversion-factors-2018','2007','1430.0');
-INSERT INTO "RefrigerantEmssnFctr" VALUES(2,'R-407C - IPCC AR4 2007','https://www.gov.uk/government/publications/greenhouse-gas-reporting-conversion-factors-2018','2007','1774.0');
+INSERT INTO "RefrigerantEmssnFctr" VALUES(1,'HCFC-225ca - IPCC AR5 2014','GHG Protocol - Global Warming Potential Values (May 2015) - Last accessed October 25, 2021. https://www.ghgprotocol.org/sites/default/files/ghgp/Global-Warming-Potential-Values%20%28Feb%2016%202016%29_1.pdf','2014','127.0');
+INSERT INTO "RefrigerantEmssnFctr" VALUES(2,'R134a - IPCC AR4 2007','https://www.gov.uk/government/publications/greenhouse-gas-reporting-conversion-factors-2018','2007','1430.0');
+INSERT INTO "RefrigerantEmssnFctr" VALUES(3,'R-407C - IPCC AR4 2007','https://www.gov.uk/government/publications/greenhouse-gas-reporting-conversion-factors-2018','2007','1774.0');
+INSERT INTO "RefrigerantEmssnFctr" VALUES(4,'HCFC-21 - IPCC AR5 2014','GHG Protocol - Global Warming Potential Values (May 2015) - Last accessed October 25, 2021. https://www.ghgprotocol.org/sites/default/files/ghgp/Global-Warming-Potential-Values%20%28Feb%2016%202016%29_1.pdf','2014','148.0');
 CREATE TABLE "StnryAssetCrbnFtprnt" (
 	id INTEGER NOT NULL, 
 	"Name" VARCHAR(255), 
@@ -185,11 +189,11 @@ INSERT INTO "StnryAssetCrbnFtprnt" VALUES(4,'Cirrus Tower - FY19 Carbon Footprin
 INSERT INTO "StnryAssetCrbnFtprnt" VALUES(5,'Cirrus Tower - FY20 Carbon Footprint','Allocated','Approved','Complete','2020-12-31','Completed','2021-06-30','2020','2020-01-01','','','','','','1','','4');
 INSERT INTO "StnryAssetCrbnFtprnt" VALUES(6,'Cirrus Tower - FY21 Carbon Footprint','Allocated','Approved','Complete','2021-12-31','Completed','2022-06-30','2021','2021-01-01','','','','','','1','','5');
 INSERT INTO "StnryAssetCrbnFtprnt" VALUES(7,'Cirrus Tower - FY22 Carbon Footprint','Not Allocated','','','2022-12-31','Data Collection','2023-06-30','2022','2022-01-01','','','','','','1','','6');
-INSERT INTO "StnryAssetCrbnFtprnt" VALUES(8,'Tranquility Data Center - FY19 Carbon Footprint','Allocated','Approved','Complete','2019-12-31','Completed','2020-06-30','2019','2019-01-01','','','','','','3','','');
-INSERT INTO "StnryAssetCrbnFtprnt" VALUES(9,'Tranquility Data Center - FY20 Carbon Footprint','Allocated','Approved','Complete','2020-12-31','Completed','2021-06-30','2020','2020-01-01','','','','','','3','','8');
-INSERT INTO "StnryAssetCrbnFtprnt" VALUES(10,'Tranquility Data Center - FY21 Carbon Footprint','In Progress','Approved','Complete','2021-12-31','Renewable Energy Allocation','2022-06-30','2021','2021-01-01','','','','','','3','','9');
+INSERT INTO "StnryAssetCrbnFtprnt" VALUES(8,'Tranquility Data Center - FY19 Carbon Footprint','Allocated','Approved','Complete','2019-12-31','Completed','2020-06-30','2019','2019-01-01','','','','','','4','','');
+INSERT INTO "StnryAssetCrbnFtprnt" VALUES(9,'Tranquility Data Center - FY20 Carbon Footprint','Allocated','Approved','Complete','2020-12-31','Completed','2021-06-30','2020','2020-01-01','','','','','','4','','8');
+INSERT INTO "StnryAssetCrbnFtprnt" VALUES(10,'Tranquility Data Center - FY21 Carbon Footprint','In Progress','Approved','Complete','2021-12-31','Renewable Energy Allocation','2022-06-30','2021','2021-01-01','','','','','','4','','9');
 INSERT INTO "StnryAssetCrbnFtprnt" VALUES(11,'Wolf Point Tower - FY19 Carbon Footprint','Allocated','Approved','Complete','2019-12-31','Completed','2020-06-30','2019','2019-01-01','','','','','','2','','');
-INSERT INTO "StnryAssetCrbnFtprnt" VALUES(12,'Tranquility Data Center - FY22 Carbon Footprint','Not Allocated','','','2022-12-31','Data Collection','2023-06-30','2022','2022-01-01','','','','','','3','','10');
+INSERT INTO "StnryAssetCrbnFtprnt" VALUES(12,'Tranquility Data Center - FY22 Carbon Footprint','Not Allocated','','','2022-12-31','Data Collection','2023-06-30','2022','2022-01-01','','','','','','4','','10');
 CREATE TABLE "StnryAssetEnrgyUse" (
 	id INTEGER NOT NULL, 
 	"Name" VARCHAR(255), 
@@ -279,11 +283,11 @@ INSERT INTO "StnryAssetEnrgyUse" VALUES(65,'Wolf Point Tower - 2021 Aug 1 - Aug 
 INSERT INTO "StnryAssetEnrgyUse" VALUES(66,'Wolf Point Tower - 2021 Sep 1 - Sep 30 - Electricity','','','2021-09-30','300000.0','kWh','Electricity','','2021-09-01','','','','','','2','2','');
 INSERT INTO "StnryAssetEnrgyUse" VALUES(67,'Wolf Point Tower - 2021 Oct 1 - Oct 31 - Electricity','','','2021-10-31','300000.0','kWh','Electricity','','2021-10-01','','','','','','2','2','');
 INSERT INTO "StnryAssetEnrgyUse" VALUES(68,'Wolf Point Tower - 2021 Nov 1 - Nov 30 - Electricity','','','2021-11-30','300000.0','kWh','Electricity','','2021-11-01','','','','','','2','2','');
-INSERT INTO "StnryAssetEnrgyUse" VALUES(69,'Tranquility Data Center - 2021 Oct 1 - Dec 31 - Refrigerant','','','2021-12-31','100.0','kG','Refrigerant','','2021-10-01','','','','','','3','','');
-INSERT INTO "StnryAssetEnrgyUse" VALUES(70,'Tranquility Data Center - 2022 Jan 1 - Mar 31 - Refrigerant','','','2022-03-31','100.0','kG','Refrigerant','','2022-01-01','','','','','','3','','');
-INSERT INTO "StnryAssetEnrgyUse" VALUES(71,'Tranquility Data Center - 2019 Jan 1 - Dec 31 - Cooling','','','2019-12-31','1000.0','kWh','Cooling','','2019-01-01','','','','','','3','','');
-INSERT INTO "StnryAssetEnrgyUse" VALUES(72,'Tranquility Data Center - 2020 Jan 1 - Dec 31 - Cooling','','','2020-12-31','1000.0','kWh','Cooling','','2020-01-01','','','','','','3','','');
-INSERT INTO "StnryAssetEnrgyUse" VALUES(73,'Tranquility Data Center - 2021 Jan 1 - Dec 31 - Cooling','','','2021-12-31','1000.0','kWh','Cooling','','2021-01-01','','','','','','3','','');
+INSERT INTO "StnryAssetEnrgyUse" VALUES(69,'Tranquility Data Center - 2021 Oct 1 - Dec 31 - Refrigerant','','','2021-12-31','100.0','kG','Refrigerant','','2021-10-01','','','','','','4','','');
+INSERT INTO "StnryAssetEnrgyUse" VALUES(70,'Tranquility Data Center - 2022 Jan 1 - Mar 31 - Refrigerant','','','2022-03-31','100.0','kG','Refrigerant','','2022-01-01','','','','','','4','','');
+INSERT INTO "StnryAssetEnrgyUse" VALUES(71,'Tranquility Data Center - 2019 Jan 1 - Dec 31 - Cooling','','','2019-12-31','1000.0','kWh','Cooling','','2019-01-01','','','','','','4','','');
+INSERT INTO "StnryAssetEnrgyUse" VALUES(72,'Tranquility Data Center - 2020 Jan 1 - Dec 31 - Cooling','','','2020-12-31','1000.0','kWh','Cooling','','2020-01-01','','','','','','4','','');
+INSERT INTO "StnryAssetEnrgyUse" VALUES(73,'Tranquility Data Center - 2021 Jan 1 - Dec 31 - Cooling','','','2021-12-31','1000.0','kWh','Cooling','','2021-01-01','','','','','','4','','');
 INSERT INTO "StnryAssetEnrgyUse" VALUES(74,'Wolf Point Tower - 2020 Jan 1 - Dec 31 - Fuel Oil','','','2020-12-31','1000.0','Liters','FuelOil','','2020-01-01','','','','','','2','1','');
 INSERT INTO "StnryAssetEnrgyUse" VALUES(75,'Wolf Point Tower - 2021 Jan 1 - Dec 31 - Fuel Oil','','','2021-12-31','1000.0','Liters','FuelOil','','2021-01-01','','','','','','2','2','');
 INSERT INTO "StnryAssetEnrgyUse" VALUES(76,'Wolf Point Tower - 2020 Jan 1 - Dec 31 - Natural Gas','','','2020-12-31','10000.0','MMBtu','NaturalGas','','2020-01-01','','','','','','2','1','');
@@ -295,61 +299,62 @@ INSERT INTO "StnryAssetEnrgyUse" VALUES(81,'Wolf Point Tower - 2022 Jan 1 - Mar 
 INSERT INTO "StnryAssetEnrgyUse" VALUES(82,'Wolf Point Tower - 2022 Apr 1 - Jun 30 - Natural Gas','','','2022-06-30','10000.0','MMBtu','NaturalGas','','2022-04-01','','','','','','2','3','');
 INSERT INTO "StnryAssetEnrgyUse" VALUES(83,'Wolf Point Tower - 2019 Jan 1 - Dec 31 - Fuel Oil','','','2019-12-31','1000.0','Liters','FuelOil','','2019-01-01','','','','','','2','11','');
 INSERT INTO "StnryAssetEnrgyUse" VALUES(84,'Wolf Point Tower - 2019 Jan 1 - Dec 31 - Natural Gas','','','2019-12-31','10000.0','MMBtu','NaturalGas','','2019-01-01','','','','','','2','11','');
-INSERT INTO "StnryAssetEnrgyUse" VALUES(85,'Tranquility Data Center - 2021 Jul 1 - Sep 30 - Refrigerant','','','2021-09-30','100.0','kG','Refrigerant','','2021-07-01','','','','','','3','','');
-INSERT INTO "StnryAssetEnrgyUse" VALUES(86,'Tranquility Data Center - 2021 Sep 1 - Sep 30 - Electricity','','','2021-09-30','20000.0','kWh','Electricity','','2021-09-01','','','','','','3','','');
-INSERT INTO "StnryAssetEnrgyUse" VALUES(87,'Tranquility Data Center - 2021 Oct 1 - Oct 31 - Electricity','','','2021-10-31','20000.0','kWh','Electricity','','2021-10-01','','','','','','3','','');
-INSERT INTO "StnryAssetEnrgyUse" VALUES(88,'Tranquility Data Center - 2021 Nov 1 - Nov 30 - Electricity','','','2021-11-30','20000.0','kWh','Electricity','','2021-11-01','','','','','','3','','');
-INSERT INTO "StnryAssetEnrgyUse" VALUES(89,'Tranquility Data Center - 2019 Apr 1 - Jun 30 - Refrigerant','','','2019-06-30','100.0','kG','Refrigerant','','2019-04-01','','','','','','3','','');
-INSERT INTO "StnryAssetEnrgyUse" VALUES(90,'Tranquility Data Center - 2020 Oct 1 - Dec 31 - Refrigerant','','','2020-12-31','100.0','kG','Refrigerant','','2020-10-01','','','','','','3','','');
-INSERT INTO "StnryAssetEnrgyUse" VALUES(91,'Tranquility Data Center - 2021 Jan 1 - Mar 31 - Refrigerant','','','2021-03-31','100.0','kG','Refrigerant','','2021-01-01','','','','','','3','','');
-INSERT INTO "StnryAssetEnrgyUse" VALUES(92,'Tranquility Data Center - 2021 Feb 1 - Feb 28 - Electricity','','','2021-02-28','20000.0','kWh','Electricity','','2021-02-01','','','','','','3','','');
-INSERT INTO "StnryAssetEnrgyUse" VALUES(93,'Tranquility Data Center - 2021 May 1 - May 31 - Electricity','','','2021-05-31','20000.0','kWh','Electricity','','2021-05-01','','','','','','3','','');
-INSERT INTO "StnryAssetEnrgyUse" VALUES(94,'Tranquility Data Center - 2021 Jun 1 - Jun 30 - Electricity','','','2021-06-30','20000.0','kWh','Electricity','','2021-06-01','','','','','','3','','');
-INSERT INTO "StnryAssetEnrgyUse" VALUES(95,'Tranquility Data Center - 2020 Jan 1 - Mar 31 - Refrigerant','','','2020-03-31','100.0','kG','Refrigerant','','2020-01-01','','','','','','3','','');
-INSERT INTO "StnryAssetEnrgyUse" VALUES(96,'Tranquility Data Center - 2020 Apr 1 - Jun 30 - Refrigerant','','','2020-06-30','100.0','kG','Refrigerant','','2020-04-01','','','','','','3','','');
-INSERT INTO "StnryAssetEnrgyUse" VALUES(97,'Tranquility Data Center - 2020 Jul 1 - Sep 30 - Refrigerant','','','2020-09-30','100.0','kG','Refrigerant','','2020-07-01','','','','','','3','','');
-INSERT INTO "StnryAssetEnrgyUse" VALUES(98,'Tranquility Data Center - 2022 Apr 1 - Apr 30 - Electricity','','','2022-04-30','20000.0','kWh','Electricity','','2022-04-01','','','','','','3','','');
-INSERT INTO "StnryAssetEnrgyUse" VALUES(99,'Tranquility Data Center - 2019 Jan 1 - Mar 31 - Refrigerant','','','2019-03-31','100.0','kG','Refrigerant','','2019-01-01','','','','','','3','','');
-INSERT INTO "StnryAssetEnrgyUse" VALUES(100,'Tranquility Data Center - 2019 Jul 1 - Sep 30 - Refrigerant','','','2019-09-30','100.0','kG','Refrigerant','','2019-07-01','','','','','','3','','');
-INSERT INTO "StnryAssetEnrgyUse" VALUES(101,'Tranquility Data Center - 2019 Oct 1 - Dec 31 - Refrigerant','','','2019-12-31','100.0','kG','Refrigerant','','2019-10-01','','','','','','3','','');
-INSERT INTO "StnryAssetEnrgyUse" VALUES(102,'Tranquility Data Center - 2021 Dec 1 - Dec 31 - Electricity','','','2021-12-31','20000.0','kWh','Electricity','','2021-12-01','','','','','','3','','');
-INSERT INTO "StnryAssetEnrgyUse" VALUES(103,'Tranquility Data Center - 2021 Apr 1 - Jun 30 - Refrigerant','','','2021-06-30','100.0','kG','Refrigerant','','2021-04-01','','','','','','3','','');
-INSERT INTO "StnryAssetEnrgyUse" VALUES(104,'Tranquility Data Center - 2021 Mar 1 - Mar 31 - Electricity','','','2021-03-31','20000.0','kWh','Electricity','','2021-03-01','','','','','','3','','');
-INSERT INTO "StnryAssetEnrgyUse" VALUES(105,'Tranquility Data Center - 2021 Apr 1 - Apr 30 - Electricity','','','2021-04-30','20000.0','kWh','Electricity','','2021-04-01','','','','','','3','','');
-INSERT INTO "StnryAssetEnrgyUse" VALUES(106,'Tranquility Data Center - 2021 Jul 1 - Jul 31 - Electricity','','','2021-07-31','20000.0','kWh','Electricity','','2021-07-01','','','','','','3','','');
-INSERT INTO "StnryAssetEnrgyUse" VALUES(107,'Tranquility Data Center - 2022 Feb 1 - Feb 28 - Electricity','','','2022-02-28','20000.0','kWh','Electricity','','2022-02-01','','','','','','3','','');
-INSERT INTO "StnryAssetEnrgyUse" VALUES(108,'Tranquility Data Center - 2022 Jan 1 - Jan 31 - Electricity','','','2022-01-31','20000.0','kWh','Electricity','','2022-01-01','','','','','','3','','');
-INSERT INTO "StnryAssetEnrgyUse" VALUES(109,'Tranquility Data Center - 2021 Aug 1 - Aug 31 - Electricity','','','2021-08-31','20000.0','kWh','Electricity','','2021-08-01','','','','','','3','','');
-INSERT INTO "StnryAssetEnrgyUse" VALUES(110,'Tranquility Data Center - 2022 Mar 1 - Mar 31 - Electricity','','','2022-03-31','20000.0','kWh','Electricity','','2022-03-01','','','','','','3','','');
-INSERT INTO "StnryAssetEnrgyUse" VALUES(111,'Tranquility Data Center - 2019 Jan 1 - Jan 31 - Electricity','','','2019-01-31','20000.0','kWh','Electricity','','2019-01-01','','','','','','3','','');
-INSERT INTO "StnryAssetEnrgyUse" VALUES(112,'Tranquility Data Center - 2019 Mar 1 - Mar 31 - Electricity','','','2019-03-31','20000.0','kWh','Electricity','','2019-03-01','','','','','','3','','');
-INSERT INTO "StnryAssetEnrgyUse" VALUES(113,'Tranquility Data Center - 2019 Feb 1 - Feb 28 - Electricity','','','2019-02-28','20000.0','kWh','Electricity','','2019-02-01','','','','','','3','','');
-INSERT INTO "StnryAssetEnrgyUse" VALUES(114,'Tranquility Data Center - 2019 Aug 1 - Aug 31 - Electricity','','','2019-08-31','20000.0','kWh','Electricity','','2019-08-01','','','','','','3','','');
-INSERT INTO "StnryAssetEnrgyUse" VALUES(115,'Tranquility Data Center - 2019 May 1 - May 31 - Electricity','','','2019-05-31','20000.0','kWh','Electricity','','2019-05-01','','','','','','3','','');
-INSERT INTO "StnryAssetEnrgyUse" VALUES(116,'Tranquility Data Center - 2019 Apr 1 - Apr 30 - Electricity','','','2019-04-30','20000.0','kWh','Electricity','','2019-04-01','','','','','','3','','');
-INSERT INTO "StnryAssetEnrgyUse" VALUES(117,'Tranquility Data Center - 2019 Jun 1 - Jun 30 - Electricity','','','2019-06-30','20000.0','kWh','Electricity','','2019-06-01','','','','','','3','','');
-INSERT INTO "StnryAssetEnrgyUse" VALUES(118,'Tranquility Data Center - 2019 Jul 1 - Jul 31 - Electricity','','','2019-07-31','20000.0','kWh','Electricity','','2019-07-01','','','','','','3','','');
-INSERT INTO "StnryAssetEnrgyUse" VALUES(119,'Tranquility Data Center - 2020 Jan 1 - Jan 31 - Electricity','','','2020-01-31','20000.0','kWh','Electricity','','2020-01-01','','','','','','3','','');
-INSERT INTO "StnryAssetEnrgyUse" VALUES(120,'Tranquility Data Center - 2020 Feb 1 - Feb 29 - Electricity','','','2020-02-29','20000.0','kWh','Electricity','','2020-02-01','','','','','','3','','');
-INSERT INTO "StnryAssetEnrgyUse" VALUES(121,'Tranquility Data Center - 2019 Sep 1 - Sep 30 - Electricity','','','2019-09-30','20000.0','kWh','Electricity','','2019-09-01','','','','','','3','','');
-INSERT INTO "StnryAssetEnrgyUse" VALUES(122,'Tranquility Data Center - 2020 Apr 1 - Apr 30 - Electricity','','','2020-04-30','20000.0','kWh','Electricity','','2020-04-01','','','','','','3','','');
-INSERT INTO "StnryAssetEnrgyUse" VALUES(123,'Tranquility Data Center - 2020 Mar 1 - Mar 31 - Electricity','','','2020-03-31','20000.0','kWh','Electricity','','2020-03-01','','','','','','3','','');
-INSERT INTO "StnryAssetEnrgyUse" VALUES(124,'Tranquility Data Center - 2019 Oct 1 - Oct 31 - Electricity','','','2019-10-31','20000.0','kWh','Electricity','','2019-10-01','','','','','','3','','');
-INSERT INTO "StnryAssetEnrgyUse" VALUES(125,'Tranquility Data Center - 2019 Nov 1 - Nov 30 - Electricity','','','2019-11-30','20000.0','kWh','Electricity','','2019-11-01','','','','','','3','','');
-INSERT INTO "StnryAssetEnrgyUse" VALUES(126,'Tranquility Data Center - 2019 Dec 1 - Dec 31 - Electricity','','','2019-12-31','20000.0','kWh','Electricity','','2019-12-01','','','','','','3','','');
-INSERT INTO "StnryAssetEnrgyUse" VALUES(127,'Tranquility Data Center - 2020 Jun 1 - Jun 30 - Electricity','','','2020-06-30','20000.0','kWh','Electricity','','2020-06-01','','','','','','3','','');
-INSERT INTO "StnryAssetEnrgyUse" VALUES(128,'Tranquility Data Center - 2020 Jul 1 - Jul 31 - Electricity','','','2020-07-31','20000.0','kWh','Electricity','','2020-07-01','','','','','','3','','');
-INSERT INTO "StnryAssetEnrgyUse" VALUES(129,'Tranquility Data Center - 2020 Sep 1 - Sep 30 - Electricity','','','2020-09-30','20000.0','kWh','Electricity','','2020-09-01','','','','','','3','','');
-INSERT INTO "StnryAssetEnrgyUse" VALUES(130,'Tranquility Data Center - 2020 Aug 1 - Aug 31 - Electricity','','','2020-08-31','20000.0','kWh','Electricity','','2020-08-01','','','','','','3','','');
-INSERT INTO "StnryAssetEnrgyUse" VALUES(131,'Tranquility Data Center - 2020 Oct 1 - Oct 31 - Electricity','','','2020-10-31','20000.0','kWh','Electricity','','2020-10-01','','','','','','3','','');
-INSERT INTO "StnryAssetEnrgyUse" VALUES(132,'Tranquility Data Center - 2020 May 1 - May 31 - Electricity','','','2020-05-31','20000.0','kWh','Electricity','','2020-05-01','','','','','','3','','');
-INSERT INTO "StnryAssetEnrgyUse" VALUES(133,'Tranquility Data Center - 2020 Nov 1 - Nov 30 - Electricity','','','2020-11-30','20000.0','kWh','Electricity','','2020-11-01','','','','','','3','','');
-INSERT INTO "StnryAssetEnrgyUse" VALUES(134,'Tranquility Data Center - 2021 Jan 1 - Jan 31 - Electricity','','','2021-01-31','20000.0','kWh','Electricity','','2021-01-01','','','','','','3','','');
-INSERT INTO "StnryAssetEnrgyUse" VALUES(135,'Tranquility Data Center - 2020 Dec 1 - Dec 31 - Electricity','','','2020-12-31','20000.0','kWh','Electricity','','2020-12-01','','','','','','3','','');
+INSERT INTO "StnryAssetEnrgyUse" VALUES(85,'Tranquility Data Center - 2021 Jul 1 - Sep 30 - Refrigerant','','','2021-09-30','100.0','kG','Refrigerant','','2021-07-01','','','','','','4','','');
+INSERT INTO "StnryAssetEnrgyUse" VALUES(86,'Tranquility Data Center - 2021 Sep 1 - Sep 30 - Electricity','','','2021-09-30','20000.0','kWh','Electricity','','2021-09-01','','','','','','4','','');
+INSERT INTO "StnryAssetEnrgyUse" VALUES(87,'Tranquility Data Center - 2021 Oct 1 - Oct 31 - Electricity','','','2021-10-31','20000.0','kWh','Electricity','','2021-10-01','','','','','','4','','');
+INSERT INTO "StnryAssetEnrgyUse" VALUES(88,'Tranquility Data Center - 2021 Nov 1 - Nov 30 - Electricity','','','2021-11-30','20000.0','kWh','Electricity','','2021-11-01','','','','','','4','','');
+INSERT INTO "StnryAssetEnrgyUse" VALUES(89,'Tranquility Data Center - 2019 Apr 1 - Jun 30 - Refrigerant','','','2019-06-30','100.0','kG','Refrigerant','','2019-04-01','','','','','','4','','');
+INSERT INTO "StnryAssetEnrgyUse" VALUES(90,'Tranquility Data Center - 2020 Oct 1 - Dec 31 - Refrigerant','','','2020-12-31','100.0','kG','Refrigerant','','2020-10-01','','','','','','4','','');
+INSERT INTO "StnryAssetEnrgyUse" VALUES(91,'Tranquility Data Center - 2021 Jan 1 - Mar 31 - Refrigerant','','','2021-03-31','100.0','kG','Refrigerant','','2021-01-01','','','','','','4','','');
+INSERT INTO "StnryAssetEnrgyUse" VALUES(92,'Tranquility Data Center - 2021 Feb 1 - Feb 28 - Electricity','','','2021-02-28','20000.0','kWh','Electricity','','2021-02-01','','','','','','4','','');
+INSERT INTO "StnryAssetEnrgyUse" VALUES(93,'Tranquility Data Center - 2021 May 1 - May 31 - Electricity','','','2021-05-31','20000.0','kWh','Electricity','','2021-05-01','','','','','','4','','');
+INSERT INTO "StnryAssetEnrgyUse" VALUES(94,'Tranquility Data Center - 2021 Jun 1 - Jun 30 - Electricity','','','2021-06-30','20000.0','kWh','Electricity','','2021-06-01','','','','','','4','','');
+INSERT INTO "StnryAssetEnrgyUse" VALUES(95,'Tranquility Data Center - 2020 Jan 1 - Mar 31 - Refrigerant','','','2020-03-31','100.0','kG','Refrigerant','','2020-01-01','','','','','','4','','');
+INSERT INTO "StnryAssetEnrgyUse" VALUES(96,'Tranquility Data Center - 2020 Apr 1 - Jun 30 - Refrigerant','','','2020-06-30','100.0','kG','Refrigerant','','2020-04-01','','','','','','4','','');
+INSERT INTO "StnryAssetEnrgyUse" VALUES(97,'Tranquility Data Center - 2020 Jul 1 - Sep 30 - Refrigerant','','','2020-09-30','100.0','kG','Refrigerant','','2020-07-01','','','','','','4','','');
+INSERT INTO "StnryAssetEnrgyUse" VALUES(98,'Tranquility Data Center - 2022 Apr 1 - Apr 30 - Electricity','','','2022-04-30','20000.0','kWh','Electricity','','2022-04-01','','','','','','4','','');
+INSERT INTO "StnryAssetEnrgyUse" VALUES(99,'Tranquility Data Center - 2019 Jan 1 - Mar 31 - Refrigerant','','','2019-03-31','100.0','kG','Refrigerant','','2019-01-01','','','','','','4','','');
+INSERT INTO "StnryAssetEnrgyUse" VALUES(100,'Tranquility Data Center - 2019 Jul 1 - Sep 30 - Refrigerant','','','2019-09-30','100.0','kG','Refrigerant','','2019-07-01','','','','','','4','','');
+INSERT INTO "StnryAssetEnrgyUse" VALUES(101,'Tranquility Data Center - 2019 Oct 1 - Dec 31 - Refrigerant','','','2019-12-31','100.0','kG','Refrigerant','','2019-10-01','','','','','','4','','');
+INSERT INTO "StnryAssetEnrgyUse" VALUES(102,'Tranquility Data Center - 2021 Dec 1 - Dec 31 - Electricity','','','2021-12-31','20000.0','kWh','Electricity','','2021-12-01','','','','','','4','','');
+INSERT INTO "StnryAssetEnrgyUse" VALUES(103,'Tranquility Data Center - 2021 Apr 1 - Jun 30 - Refrigerant','','','2021-06-30','100.0','kG','Refrigerant','','2021-04-01','','','','','','4','','');
+INSERT INTO "StnryAssetEnrgyUse" VALUES(104,'Tranquility Data Center - 2021 Mar 1 - Mar 31 - Electricity','','','2021-03-31','20000.0','kWh','Electricity','','2021-03-01','','','','','','4','','');
+INSERT INTO "StnryAssetEnrgyUse" VALUES(105,'Tranquility Data Center - 2021 Apr 1 - Apr 30 - Electricity','','','2021-04-30','20000.0','kWh','Electricity','','2021-04-01','','','','','','4','','');
+INSERT INTO "StnryAssetEnrgyUse" VALUES(106,'Tranquility Data Center - 2021 Jul 1 - Jul 31 - Electricity','','','2021-07-31','20000.0','kWh','Electricity','','2021-07-01','','','','','','4','','');
+INSERT INTO "StnryAssetEnrgyUse" VALUES(107,'Tranquility Data Center - 2022 Feb 1 - Feb 28 - Electricity','','','2022-02-28','20000.0','kWh','Electricity','','2022-02-01','','','','','','4','','');
+INSERT INTO "StnryAssetEnrgyUse" VALUES(108,'Tranquility Data Center - 2022 Jan 1 - Jan 31 - Electricity','','','2022-01-31','20000.0','kWh','Electricity','','2022-01-01','','','','','','4','','');
+INSERT INTO "StnryAssetEnrgyUse" VALUES(109,'Tranquility Data Center - 2021 Aug 1 - Aug 31 - Electricity','','','2021-08-31','20000.0','kWh','Electricity','','2021-08-01','','','','','','4','','');
+INSERT INTO "StnryAssetEnrgyUse" VALUES(110,'Tranquility Data Center - 2022 Mar 1 - Mar 31 - Electricity','','','2022-03-31','20000.0','kWh','Electricity','','2022-03-01','','','','','','4','','');
+INSERT INTO "StnryAssetEnrgyUse" VALUES(111,'Tranquility Data Center - 2019 Jan 1 - Jan 31 - Electricity','','','2019-01-31','20000.0','kWh','Electricity','','2019-01-01','','','','','','4','','');
+INSERT INTO "StnryAssetEnrgyUse" VALUES(112,'Tranquility Data Center - 2019 Mar 1 - Mar 31 - Electricity','','','2019-03-31','20000.0','kWh','Electricity','','2019-03-01','','','','','','4','','');
+INSERT INTO "StnryAssetEnrgyUse" VALUES(113,'Tranquility Data Center - 2019 Feb 1 - Feb 28 - Electricity','','','2019-02-28','20000.0','kWh','Electricity','','2019-02-01','','','','','','4','','');
+INSERT INTO "StnryAssetEnrgyUse" VALUES(114,'Tranquility Data Center - 2019 Aug 1 - Aug 31 - Electricity','','','2019-08-31','20000.0','kWh','Electricity','','2019-08-01','','','','','','4','','');
+INSERT INTO "StnryAssetEnrgyUse" VALUES(115,'Tranquility Data Center - 2019 May 1 - May 31 - Electricity','','','2019-05-31','20000.0','kWh','Electricity','','2019-05-01','','','','','','4','','');
+INSERT INTO "StnryAssetEnrgyUse" VALUES(116,'Tranquility Data Center - 2019 Apr 1 - Apr 30 - Electricity','','','2019-04-30','20000.0','kWh','Electricity','','2019-04-01','','','','','','4','','');
+INSERT INTO "StnryAssetEnrgyUse" VALUES(117,'Tranquility Data Center - 2019 Jun 1 - Jun 30 - Electricity','','','2019-06-30','20000.0','kWh','Electricity','','2019-06-01','','','','','','4','','');
+INSERT INTO "StnryAssetEnrgyUse" VALUES(118,'Tranquility Data Center - 2019 Jul 1 - Jul 31 - Electricity','','','2019-07-31','20000.0','kWh','Electricity','','2019-07-01','','','','','','4','','');
+INSERT INTO "StnryAssetEnrgyUse" VALUES(119,'Tranquility Data Center - 2020 Jan 1 - Jan 31 - Electricity','','','2020-01-31','20000.0','kWh','Electricity','','2020-01-01','','','','','','4','','');
+INSERT INTO "StnryAssetEnrgyUse" VALUES(120,'Tranquility Data Center - 2020 Feb 1 - Feb 29 - Electricity','','','2020-02-29','20000.0','kWh','Electricity','','2020-02-01','','','','','','4','','');
+INSERT INTO "StnryAssetEnrgyUse" VALUES(121,'Tranquility Data Center - 2019 Sep 1 - Sep 30 - Electricity','','','2019-09-30','20000.0','kWh','Electricity','','2019-09-01','','','','','','4','','');
+INSERT INTO "StnryAssetEnrgyUse" VALUES(122,'Tranquility Data Center - 2020 Apr 1 - Apr 30 - Electricity','','','2020-04-30','20000.0','kWh','Electricity','','2020-04-01','','','','','','4','','');
+INSERT INTO "StnryAssetEnrgyUse" VALUES(123,'Tranquility Data Center - 2020 Mar 1 - Mar 31 - Electricity','','','2020-03-31','20000.0','kWh','Electricity','','2020-03-01','','','','','','4','','');
+INSERT INTO "StnryAssetEnrgyUse" VALUES(124,'Tranquility Data Center - 2019 Oct 1 - Oct 31 - Electricity','','','2019-10-31','20000.0','kWh','Electricity','','2019-10-01','','','','','','4','','');
+INSERT INTO "StnryAssetEnrgyUse" VALUES(125,'Tranquility Data Center - 2019 Nov 1 - Nov 30 - Electricity','','','2019-11-30','20000.0','kWh','Electricity','','2019-11-01','','','','','','4','','');
+INSERT INTO "StnryAssetEnrgyUse" VALUES(126,'Tranquility Data Center - 2019 Dec 1 - Dec 31 - Electricity','','','2019-12-31','20000.0','kWh','Electricity','','2019-12-01','','','','','','4','','');
+INSERT INTO "StnryAssetEnrgyUse" VALUES(127,'Tranquility Data Center - 2020 Jun 1 - Jun 30 - Electricity','','','2020-06-30','20000.0','kWh','Electricity','','2020-06-01','','','','','','4','','');
+INSERT INTO "StnryAssetEnrgyUse" VALUES(128,'Tranquility Data Center - 2020 Jul 1 - Jul 31 - Electricity','','','2020-07-31','20000.0','kWh','Electricity','','2020-07-01','','','','','','4','','');
+INSERT INTO "StnryAssetEnrgyUse" VALUES(129,'Tranquility Data Center - 2020 Sep 1 - Sep 30 - Electricity','','','2020-09-30','20000.0','kWh','Electricity','','2020-09-01','','','','','','4','','');
+INSERT INTO "StnryAssetEnrgyUse" VALUES(130,'Tranquility Data Center - 2020 Aug 1 - Aug 31 - Electricity','','','2020-08-31','20000.0','kWh','Electricity','','2020-08-01','','','','','','4','','');
+INSERT INTO "StnryAssetEnrgyUse" VALUES(131,'Tranquility Data Center - 2020 Oct 1 - Oct 31 - Electricity','','','2020-10-31','20000.0','kWh','Electricity','','2020-10-01','','','','','','4','','');
+INSERT INTO "StnryAssetEnrgyUse" VALUES(132,'Tranquility Data Center - 2020 May 1 - May 31 - Electricity','','','2020-05-31','20000.0','kWh','Electricity','','2020-05-01','','','','','','4','','');
+INSERT INTO "StnryAssetEnrgyUse" VALUES(133,'Tranquility Data Center - 2020 Nov 1 - Nov 30 - Electricity','','','2020-11-30','20000.0','kWh','Electricity','','2020-11-01','','','','','','4','','');
+INSERT INTO "StnryAssetEnrgyUse" VALUES(134,'Tranquility Data Center - 2021 Jan 1 - Jan 31 - Electricity','','','2021-01-31','20000.0','kWh','Electricity','','2021-01-01','','','','','','4','','');
+INSERT INTO "StnryAssetEnrgyUse" VALUES(135,'Tranquility Data Center - 2020 Dec 1 - Dec 31 - Electricity','','','2020-12-31','20000.0','kWh','Electricity','','2020-12-01','','','','','','4','','');
 CREATE TABLE "StnryAssetEnvrSrc" (
 	id INTEGER NOT NULL, 
 	"Name" VARCHAR(255), 
 	"RecordTypeId" VARCHAR(255), 
+	cci_extid__c VARCHAR(255), 
 	"BusinessRegion" VARCHAR(255), 
 	"City" VARCHAR(255), 
 	"IsCompanyOwnedAsset" VARCHAR(255), 
@@ -377,9 +382,10 @@ CREATE TABLE "StnryAssetEnvrSrc" (
 	"RegionalBldgEnergyIntensityId" VARCHAR(255), 
 	PRIMARY KEY (id)
 );
-INSERT INTO "StnryAssetEnvrSrc" VALUES(1,'Cirrus Tower','0120U000003JcvZQAS','AMER','San Francisco','True','US','Headquarters','','','False','881762.0','sqft','94105','SF-0012','CA','GH-3456aa-XO','Office','415 Mission St','','1600000.0','sqft','','3','1','','1','1');
-INSERT INTO "StnryAssetEnvrSrc" VALUES(2,'Wolf Point Tower','0120U000003JcvZQAS','AMER','Chicago','False','US','Flagship office in the midwest','','LID-P-44932','False','196000.0','sqft','60654','XXC-445111','IL','','Office','333 West Wolf Point Plaza Drive','','1200000.0','sqft','','1','1','','2','2');
-INSERT INTO "StnryAssetEnvrSrc" VALUES(3,'Tranquility Data Center','0120U000003JcveQAC','EMEA','München','False','DE','European data center','2026-04-30','LIX-823-HW2','False','100000.0','sqft','80636','DC-19471','Bavaria','','Data Center','Erika-Mann-Strasse 31-37','','100000.0','sqft','','2','1','','1','');
+INSERT INTO "StnryAssetEnvrSrc" VALUES(1,'Cirrus Tower','0120U000003JcvZQAS','cirrus','AMER','San Francisco','True','US','Headquarters','','','False','881762.0','sqft','94105','SF-0012','CA','GH-3456aa-XO','Office','415 Mission St','','1600000.0','sqft','','4','1','','2','1');
+INSERT INTO "StnryAssetEnvrSrc" VALUES(2,'Wolf Point Tower','0120U000003JcvZQAS','wolfpoint','AMER','Chicago','False','US','Flagship office in the midwest','','LID-P-44932','False','196000.0','sqft','60654','XXC-445111','IL','','Office','333 West Wolf Point Plaza Drive','','1200000.0','sqft','','1','1','','3','2');
+INSERT INTO "StnryAssetEnvrSrc" VALUES(3,'Addison Manufacturing','0120U000003JcvZQAS','addison','AMER','Toronto','True','CA','Manufacturing center','','','False','6000.0','sqft','M5E 1X8','CA-00028','ON','MF-02933nx-AA','Manufacturing','30 Yonge St','','6000.0','sqft','','3','1','','4','');
+INSERT INTO "StnryAssetEnvrSrc" VALUES(4,'Tranquility Data Center','0120U000003JcveQAC','tranquility','EMEA','München','False','DE','European data center','2026-04-30','LIX-823-HW2','False','100000.0','sqft','80636','DC-19471','Bavaria','','Data Center','Erika-Mann-Strasse 31-37','','100000.0','sqft','','2','1','','1','');
 CREATE TABLE "StnryAssetEnvrSrc_rt_mapping" (
 	record_type_id VARCHAR(18) NOT NULL, 
 	developer_name VARCHAR(255), 

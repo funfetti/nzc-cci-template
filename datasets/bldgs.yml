@@ -2,6 +2,7 @@ Other Emissions Factor Set:
     sf_object: OtherEmssnFctrSet
     fields: 
         - Name
+        - cci_extid__c
         - Ch4GlblWarmingPot
         - RefrigerantLeakageRtInKgItKwh
         - EmissionFactorDataSource
@@ -158,6 +159,7 @@ Stationary Asset Environmental Source:
     fields: 
         - Name
         - RecordTypeId
+        - cci_extid__c
         - BusinessRegion
         - City
         - IsCompanyOwnedAsset
