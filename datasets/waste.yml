@@ -1,5 +1,4 @@
 ### WASTE emissions factors 
-
 Waste Disposal Emissions Factor Set:
   sf_object: WstDispoEmssnFctrSet
   fields: 
@@ -15,8 +14,10 @@ Waste Disposal Emissions Factor Set Item:
     - DisposalType
     - EmissionsFactorValue
     - EmissionsFactorValueUnit
-    - ParentEmissionFactorId
     - WasteType
+  lookups: 
+    ParentEmissionFactorId:
+      table: WstDispoEmssnFctrSet
   soql_filter: ParentEmissionFactorId IN (SELECT WstDispoEmssnFctrId from GeneratedWaste)
 
 # Supplier stuff
@@ -39,14 +40,14 @@ Supplier:
 
 ### Assets and Carbon Footprints
 
-Stationary Asset Environmental Source:
+UPSERT Stationary Asset Environmental Source: 
   sf_object: StnryAssetEnvrSrc
-    fields: 
-      - Name
-      - cci_extid__c
-    action: upsert
-    update_key: - cci_extid__c
-    soql_filter: Id in (SELECT StnryAssetEnvrSrcId from GeneratedWaste)
+  fields:
+    - Name
+    - cci_extid__c
+  action: upsert
+  update_key: cci_extid__c
+  soql_filter: Id in (SELECT StnryAssetEnvrSrcId from GeneratedWaste)
 
 Scope 3 Carbon Footprint:
   sf_object: Scope3CrbnFtprnt
@@ -60,10 +61,9 @@ Scope 3 Carbon Footprint:
     - StartDate
     - SuplScope3Emission
   lookups:
-    Scope3EmssnSrcId:
-      table: Scope3EmssnSrc
     StnryAssetEnvrSrcId:
       table: StnryAssetEnvrSrc
+    #Scope3EmssnSrcId: table: Scope3EmssnSrc
     #AnnualEmssnInventoryId: table: AnnualEmssnInventory
   soql_filter: Id IN (SELECT Scope3CrbnFtprntId from GeneratedWaste)
 
@@ -86,19 +86,11 @@ Generated Waste:
         - SuplScp3UpstrmWstGenInOper
         - WasteType
     lookups:
-        WstDispoEmssnFctrId: 
-          table: WstDispoEmssnFctrSet
+        StnryAssetEnvrSrcId:
+          table: StnryAssetEnvrSrc
         Scope3CrbnFtprntId:
           table: Scope3CrbnFtprnt
-
-
-
-        
-
-        - 
-        - Scope3EmssnSrcId
-        - StnryAssetEnvrSrcId
-
-        - WasteFootprintId
-
-
+        WstDispoEmssnFctrId: 
+          table: WstDispoEmssnFctrSet
+        # WasteFootprintId
+        # Scope3EmssnSrcId

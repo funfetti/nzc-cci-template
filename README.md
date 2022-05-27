@@ -22,15 +22,17 @@ sfdx force:data:tree:import -f datasets/RecordType.json
 
 cci task run extract_dataset -o mapping datasets/rtconfig.yml -o sql_path datasets/rtconfig.sql
 
-cci task run extract_dataset -o mapping datasets/bldgs.yml -o sql_path datasets/1-bldgs.sql
+cci task run extract_dataset -o mapping datasets/bldgs.yml -o sql_path datasets/db_bldgs.sql
 
-cci task run extract_dataset -o mapping datasets/vehicles.yml -o sql_path datasets/2-vehicles.sql
+cci task run extract_dataset -o mapping datasets/vehicles.yml -o sql_path datasets/db_vehicles.sql
 
-cci task run load_dataset --org nzc -o mapping datasets/vehicles.yml -o sql_path datasets/2-vehicles.sql
+cci task run load_dataset --org nzc -o mapping datasets/vehicles.yml -o sql_path datasets/db_asvehicles.sql
 
 ###
 
 to do:
+- hmm add source push to the cci setup flow
+
 - waste
 - freight
 - biz travel
