@@ -83,7 +83,7 @@ flows:
                 options:
                     command: force:source:deploy
                     extra: -p force-app/main/default/settings/Industries.settings-meta.xml
-            4: # grant file permissions for Testim
+            4:        
                 task: fileperms
                     ui_options:
                     name: Granting File Permissions
