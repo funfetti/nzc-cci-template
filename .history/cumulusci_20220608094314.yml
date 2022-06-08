@@ -109,6 +109,10 @@ flows:
                     ui_options:
                     name: Granting File Permissions
             4: # loading record types
+<<<<<<< HEAD
+                task: qbrix_manual_enable_NetZeroConfigs_configs
+                
+=======
                 task: dx
                 options: 
                     command: force:data:tree:import
@@ -126,6 +130,7 @@ flows:
                 options:
                     command: force:org:open 
                     extra: -p lightning/setup/BldgEnrgyIntensityCnfg/home
+>>>>>>> 07eec9ae78668c88d0e6179023919ec4220744f7
         
     # cant auotmate vehicles and blgs until the mappings are api enabled :/
     # load_vehicles:

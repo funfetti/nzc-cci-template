@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BldgEnrgyIntensityCnfg xmlns="http://soap.sforce.com/2006/04/metadata">
+    <buildingEnergyIntensityType>BuildingEnergyIntensity</buildingEnergyIntensityType>
+    <recordType>BldgEnrgyIntensity.Building_Energy_Intensity</recordType>
+</BldgEnrgyIntensityCnfg>

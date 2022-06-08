@@ -109,23 +109,8 @@ flows:
                     ui_options:
                     name: Granting File Permissions
             4: # loading record types
-                task: dx
-                options: 
-                    command: force:data:tree:import
-                    extra: -f datasets/RecordType.json
-            5: # setting admin perms
-                task: update_admin_profile
-            6: # import record type mappings
-                task:  deploy_BEIConfigs
-            7: # import record type mappings
-                task:  deploy_StnAssetEnvSourceConfigs
-            8: # import record type mappings
-                task:  deploy_VhcleAssetEmissionSourceConfigs
-            9: # opens up the record type mappings! Settings > Net Zero > Record Type Configurations
-                task: dx
-                options:
-                    command: force:org:open 
-                    extra: -p lightning/setup/BldgEnrgyIntensityCnfg/home
+                task: qbrix_manual_enable_NetZeroConfigs_configs
+                
         
     # cant auotmate vehicles and blgs until the mappings are api enabled :/
     # load_vehicles:
