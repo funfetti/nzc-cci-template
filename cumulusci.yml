@@ -44,6 +44,27 @@ tasks:
                   default: true
                 - record_type: "VehicleAssetEmssnSrc.Private_Jet"
 
+    deploy_BEIConfigs:
+        description: Deploy BEI Record Type configs
+        class_path: cumulusci.tasks.salesforce.Deploy
+        group: projectName
+        options:
+            path: force-app/main/default/buildingEnergyIntensityConfigs
+
+    deploy_StnAssetEnvSourceConfigs:
+        description: Deploy Stationary Asset Env Source Record Type configs
+        class_path: cumulusci.tasks.salesforce.Deploy
+        group: projectName
+        options:
+            path: force-app/main/default/stationaryAssetEnvSourceConfigs
+
+    deploy_VhcleAssetEmissionSourceConfigs:
+        description: Deploy Vehicle Asset Emission Source Record Type configs
+        class_path: cumulusci.tasks.salesforce.Deploy
+        group: projectName
+        options:
+            path: force-app/main/default/vehicleAssetEmssnSourceConfigs
+
 flows:
     extract_record_type:
         group: data
@@ -79,10 +100,16 @@ flows:
                     extra: -f datasets/RecordType.json
             5: # setting admin perms
                 task: update_admin_profile
-            6: # opens up the record type mappings! Settings > Net Zero > Record Type Configurations
+            6: # import record type mappings
+                task:  deploy_BEIConfigs
+            7: # import record type mappings
+                task:  deploy_StnAssetEnvSourceConfigs
+            8: # import record type mappings
+                task:  deploy_VhcleAssetEmissionSourceConfigs
+            9: # opens up the record type mappings! Settings > Net Zero > Record Type Configurations
                 task: dx
                 options:
-                    command: sfdx force:org:open 
+                    command: force:org:open 
                     extra: -p lightning/setup/BldgEnrgyIntensityCnfg/home
         
     # cant auotmate vehicles and blgs until the mappings are api enabled :/
