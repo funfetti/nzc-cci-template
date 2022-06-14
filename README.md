@@ -42,6 +42,8 @@ to do:
 - annual inventory?
 - forecasting?
 
+- make a flow to push the custom fields and THEN push the data
+
 ## Read All About It
 - [Salesforce Extensions Documentation](https://developer.salesforce.com/tools/vscode/)
 - [Salesforce CLI Setup Guide](https://developer.salesforce.com/docs/atlas.en-us.sfdx_setup.meta/sfdx_setup/sfdx_setup_intro.htm)
