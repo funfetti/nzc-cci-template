@@ -382,10 +382,10 @@ CREATE TABLE "StnryAssetEnvrSrc" (
 	"RegionalBldgEnergyIntensityId" VARCHAR(255), 
 	PRIMARY KEY (id)
 );
-INSERT INTO "StnryAssetEnvrSrc" VALUES(1,'Cirrus Tower','0120U000003JcvZQAS','cirrus','AMER','San Francisco','True','US','Headquarters','','','False','881762.0','sqft','94105','SF-0012','CA','GH-3456aa-XO','Office','415 Mission St','','1600000.0','sqft','','4','1','','2','1');
-INSERT INTO "StnryAssetEnvrSrc" VALUES(2,'Wolf Point Tower','0120U000003JcvZQAS','wolfpoint','AMER','Chicago','False','US','Flagship office in the midwest','','LID-P-44932','False','196000.0','sqft','60654','XXC-445111','IL','','Office','333 West Wolf Point Plaza Drive','','1200000.0','sqft','','1','1','','3','2');
-INSERT INTO "StnryAssetEnvrSrc" VALUES(3,'Addison Manufacturing','0120U000003JcvZQAS','addison','AMER','Toronto','True','CA','Manufacturing center','','','False','6000.0','sqft','M5E 1X8','CA-00028','ON','MF-02933nx-AA','Manufacturing','30 Yonge St','','6000.0','sqft','','3','1','','4','');
-INSERT INTO "StnryAssetEnvrSrc" VALUES(4,'Tranquility Data Center','0120U000003JcveQAC','tranquility','EMEA','München','False','DE','European data center','2026-04-30','LIX-823-HW2','False','100000.0','sqft','80636','DC-19471','Bavaria','','Data Center','Erika-Mann-Strasse 31-37','','100000.0','sqft','','2','1','','1','');
+INSERT INTO "StnryAssetEnvrSrc" VALUES(1,'Cirrus Tower','0120U000003JcvZQAS','sa-cirrus','AMER','San Francisco','True','US','Headquarters','','','False','881762.0','sqft','94105','SF-0012','CA','GH-3456aa-XO','Office','415 Mission St','','1600000.0','sqft','','4','1','','2','1');
+INSERT INTO "StnryAssetEnvrSrc" VALUES(2,'Wolf Point Tower','0120U000003JcvZQAS','sa-wolfpoint','AMER','Chicago','False','US','Flagship office in the midwest','','LID-P-44932','False','196000.0','sqft','60654','XXC-445111','IL','','Office','333 West Wolf Point Plaza Drive','','1200000.0','sqft','','1','1','','3','2');
+INSERT INTO "StnryAssetEnvrSrc" VALUES(3,'Addison Manufacturing','0120U000003JcvZQAS','sa-addison','AMER','Toronto','True','CA','Manufacturing center','','','False','6000.0','sqft','M5E 1X8','CA-00028','ON','MF-02933nx-AA','Manufacturing','30 Yonge St','','6000.0','sqft','','3','1','','4','');
+INSERT INTO "StnryAssetEnvrSrc" VALUES(4,'Tranquility Data Center','0120U000003JcveQAC','sa-tranquility','EMEA','München','False','DE','European data center','2026-04-30','LIX-823-HW2','False','100000.0','sqft','80636','DC-19471','Bavaria','','Data Center','Erika-Mann-Strasse 31-37','','100000.0','sqft','','2','1','','1','');
 CREATE TABLE "StnryAssetEnvrSrc_rt_mapping" (
 	record_type_id VARCHAR(18) NOT NULL, 
 	developer_name VARCHAR(255), 

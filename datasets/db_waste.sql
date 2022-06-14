@@ -85,7 +85,7 @@ CREATE TABLE "StnryAssetEnvrSrc" (
 	cci_extid__c VARCHAR(255), 
 	PRIMARY KEY (id)
 );
-INSERT INTO "StnryAssetEnvrSrc" VALUES(1,'Addison Manufacturing','addison');
+INSERT INTO "StnryAssetEnvrSrc" VALUES(1,'Addison Manufacturing','sa-addison');
 CREATE TABLE "Supplier" (
 	id INTEGER NOT NULL, 
 	"Name" VARCHAR(255), 
