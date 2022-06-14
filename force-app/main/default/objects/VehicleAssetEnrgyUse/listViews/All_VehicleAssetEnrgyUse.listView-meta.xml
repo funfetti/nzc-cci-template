@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>All_VehicleAssetEnrgyUse</fullName>
+    <columns>Name</columns>
+    <columns>FuelType</columns>
+    <columns>StartDate</columns>
+    <columns>EndDate</columns>
+    <columns>Scope1EmissionsInTco2e</columns>
+    <columns>VehicleAssetCrbnFtprnt</columns>
+    <filterScope>Everything</filterScope>
+    <label>All Vehicle Asset Energy Uses</label>
+</ListView>

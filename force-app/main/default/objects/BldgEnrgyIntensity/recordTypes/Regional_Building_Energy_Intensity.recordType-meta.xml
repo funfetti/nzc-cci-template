@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<RecordType xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Regional_Building_Energy_Intensity</fullName>
+    <active>true</active>
+    <description>Use for data obtained from external sources or standards bodies, such as Commercial Buildings Energy Consumption Survey (CBECS)</description>
+    <label>Regional Building Energy Intensity</label>
+</RecordType>
