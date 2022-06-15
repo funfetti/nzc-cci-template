@@ -55,52 +55,6 @@ tasks:
         options:
             command: ./scripts/QBrix/runRPAScript.sh "[xDO] - Net Zero Add Record Type Configs"
 
-    deploy_BEIConfigs:
-        description: Deploy BEI Record Type configs
-        class_path: cumulusci.tasks.salesforce.Deploy
-        group: projectName
-        options:
-            path: force-app/main/default/buildingEnergyIntensityConfigs
-
-    deploy_StnAssetEnvSourceConfigs:
-        description: Deploy Stationary Asset Env Source Record Type configs
-        class_path: cumulusci.tasks.salesforce.Deploy
-        group: projectName
-        options:
-            path: force-app/main/default/stationaryAssetEnvSourceConfigs
-
-    deploy_VhcleAssetEmissionSourceConfigs:
-        description: Deploy Vehicle Asset Emission Source Record Type configs
-        class_path: cumulusci.tasks.salesforce.Deploy
-        group: projectName
-        options:
-            path: force-app/main/default/vehicleAssetEmssnSourceConfigs
-    
-    # data load tasks 
-    load_buildings:
-        description: Loads DATA for Stationary Assets and Stationary Asset Energy Use Records
-        class_path: cumulusci.tasks.bulkdata.LoadData
-        group: nzcData
-        options: 
-            mapping: datasets/bldgs.yml
-            sql_path: datasets/db_bldgs.sql
-
-    load_vehicles:
-        description: Loads DATA for Vehicle Assets and Vehicle Energy Use Records
-        class_path: cumulusci.tasks.bulkdata.LoadData
-        group: nzcData
-        options: 
-            mapping: datasets/vehicles.yml
-            sql_path: datasets/db_vehicles.sql
-
-    load_waste:
-        description: Loads DATA for waste - REQUIRES load buildings first!
-        class_path: cumulusci.tasks.bulkdata.LoadData
-        group: nzcData
-        options: 
-            mapping: datasets/waste.yml
-            sql_path: datasets/db_waste.sql
-
 flows:
     extract_record_type:
         group: data
@@ -129,17 +83,28 @@ flows:
                 options:
                     command: force:source:deploy
                     extra: -p force-app/main/default/settings/Industries.settings-meta.xml
-            4: # loading record types and the custom external id fields
-                task: dx
-                options: 
-                    command: force:source:push
-                    #command: force:data:tree:import
-                    #extra: -f datasets/RecordType.json
-            5: # setting admin perms
-                task: update_admin_profile
-            6: # import record type mappings
-                task:  deploy_BEIConfigs
-            7: # import record type mappings
-                task:  deploy_StnAssetEnvSourceConfigs
-            8: # import record type mappings
-                task:  deploy_VhcleAssetEmissionSourceConfigs
+            4:        
+            task: fileperms
+                ui_options:
+                    name: Granting File Permissions
+            4: # loading record types
+                task: qbrix_manual_enable_NetZeroConfigs_configs
+                
+        
+    # cant auotmate vehicles and blgs until the mappings are api enabled :/
+    # load_vehicles:
+    #     group: net zero
+    #     description: assigns perms, load vehicles
+    #     steps:
+    #         1: # loading record types
+    #             task: dx
+    #             options: 
+    #                 command: force:data:tree:import
+    #                 extra: -f datasets/RecordType.json
+    #         2: # setting admin perms
+    #             task: update_admin_profile
+    #         3: # push data
+    #             task: load_dataset
+    #             options:
+    #                 mapping: datasets/vehicles.yml 
+    #                 sql_path: datasets/2-vehicles.sql

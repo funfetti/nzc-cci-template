@@ -1,0 +1,115 @@
+minimum_cumulusci_version: '3.56.0'
+project:
+    name: nzc-cci-template
+    package:
+        name: pkg
+        api_version: '54.0'
+    git:
+        default_branch: 'main'
+    source_format: sfdx
+
+orgs:
+    scratch:
+        nzc:
+            config_file: config/project-scratch-def.json
+            days: 30
+
+tasks:
+    robot:
+        options:
+            suites: robot/nzc-cci-template/tests
+            options:
+                outputdir: robot/nzc-cci-template/results
+
+    robot_testdoc:
+        options:
+            path: robot/nzc-cci-template/tests
+            output: robot/nzc-cci-template/doc/nzc-cci-template_tests.html
+
+    run_tests:
+        options:
+            required_org_code_coverage_percent: 75
+
+tasks:
+    update_admin_profile:
+        options:
+            record_types:
+                - record_type: "StnryAssetEnvrSrc.Commercial_Building" 
+                  default: true
+                - record_type: "StnryAssetEnvrSrc.Data_Center"
+                - record_type: "BldgEnrgyIntensity.Building_Energy_Intensity"
+                  default: true
+                - record_type: "BldgEnrgyIntensity.Regional_Building_Energy_Intensity"
+                - record_type: "VehicleAssetEmssnSrc.Fleet_Vehicle"
+                  default: true
+                - record_type: "VehicleAssetEmssnSrc.Private_Jet"
+    fileperms:
+    description: Add permissions to sh scripts
+    class_path: cumulusci.tasks.command.Command
+    options:
+      command: chmod +x scripts/QBrix/*.sh 
+
+  qbrix_manual_enable_NetZeroConfigs_configs:
+    description: "Run RPA Scripts"
+    class_path: cumulusci.tasks.command.SalesforceCommand
+    options:
+        command: ./scripts/QBrix/runRPAScript.sh "[xDO] - Net Zero Add Record Type Configs"
+
+flows:
+    extract_record_type:
+        group: data
+        description: extracts record type information from org
+        steps:
+            1:
+                task: dx
+                options: 
+                    command: force:data:tree:export
+                    extra: -q "SELECT ID, Name, DeveloperName, SobjectType, Description FROM RecordType" -d datasets 
+    
+    setup_nzc:
+        group: net zero
+        description: assigns PSLs, perms, pushes industriessettings file
+        steps: 
+            1:
+                task: assign_permission_set_licenses
+                options:
+                    api_names: NetZeroCloudUserPsl, DataProcessingEnginePsl, ManufacturingAdvancedAccountForecastPsl
+            2:
+                task: assign_permission_sets
+                options:
+                    api_names: NetZeroManager, DataProcessingEngineUser, ManufacturingAdvancedAccountForecastPsl
+            3: # turning on Net Zero Setup toggles
+                task: dx
+                options:
+                    command: force:source:deploy
+                    extra: -p force-app/main/default/settings/Industries.settings-meta.xml
+            4: # loading record types
+                task: dx
+                options: 
+                    command: force:data:tree:import
+                    extra: -f datasets/RecordType.json
+            5: # setting admin perms
+                task: update_admin_profile
+            6: # opens up the record type mappings! Settings > Net Zero > Record Type Configurations
+                task: dx
+                options:
+                    command: sfdx force:org:open 
+                    extra: -p lightning/setup/BldgEnrgyIntensityCnfg/home
+        
+    # cant auotmate vehicles and blgs until the mappings are api enabled :/
+    # load_vehicles:
+    #     group: net zero
+    #     description: assigns perms, load vehicles
+    #     steps:
+    #         1: # loading record types
+    #             task: dx
+    #             options: 
+    #                 command: force:data:tree:import
+    #                 extra: -f datasets/RecordType.json
+    #         2: # setting admin perms
+    #             task: update_admin_profile
+    #         3: # push data
+    #             task: load_dataset
+    #             options:
+    #                 mapping: datasets/vehicles.yml 
+    #                 sql_path: datasets/2-vehicles.sql

@@ -1,0 +1,206 @@
+
+ProcurementEmmsnFactorSet:
+  sf_object: PcmtEmssnFctrSet
+  fields:
+    - IsComplete
+    - CurrencyCode
+    - Description
+    - EmissionFactorDataSource
+    - EmissionFactorUpdateYear
+    - External_Id__c
+    - Name
+  soql_filter: WHERE External_Id__c LIKE 'procurementset%'
+
+
+ProcurementEmmsnFactorSetItem:
+  sf_object: PcmtEmssnFctrSetItem
+  fields:
+  - EconomicSector
+  - EconomicSectorCategory
+  - EconomicSectorCode
+  - External_Id__c
+  - Name
+  - Scope3GhgCategory
+  - TotScpe3EmssnPerMillionSpent
+  lookups:
+    PcmtEmssnFctrSetId:
+      table: PcmtEmssnFctrSet
+  soql_filter: WHERE External_Id__c LIKE 'SetItem%'
+
+
+Account:
+  sf_object: Account
+  fields:
+  - Name
+  - cci_ex_id__c
+  soql_filter: WHERE cci_ex_id__c LIKE 'SupplierAcct%'
+
+
+
+Supplier:
+  sf_object: Supplier
+  fields:
+  - Description
+  - cci_ex_id__c
+  - Name
+  lookups:
+    AccountId: 
+      table: Account
+  soql_filter: WHERE cci_ex_id__c LIKE 'Supplier%'
+
+
+
+SustainabilityScorecard:
+  sf_object: SustainabilityScorecard
+  fields:
+    - CompanyEmissionsAllocationPct
+    - IsCurrentSupplierScorecard
+    - Description
+    - EndDate
+    - External_Id__c
+    - Name
+    - ReportingDueDate
+    - ScienceBasedTargetStatus
+    - Scope1Emissions
+    - Scope2LocationBasedEmissions
+    - Scope2MarkedBasedEmissions
+    - Scope3Emissions
+    - Scope3EmssnCalculationMeasure
+    - ScopestoIncludeinCalc
+    - StartDate
+    - Status
+    - SupplierAnnualRevenue
+    - SupplierClassification
+    - SupplierEmssnRdctnCmtType
+    - SupplierReportingScope
+    - SupplierTier
+    - EmissionAllocationType
+  lookups:
+    SupplierId:
+      table: Supplier
+  soql_filter: WHERE External_Id__c LIKE 'Scorecard%'
+
+
+
+Scope3EmissionsSource:
+  sf_object: Scope3EmssnSrc
+  fields:
+    - BusinessRegion
+    - City
+    - Country
+    - Description
+    - External_Id__c
+    - Name
+    - PostalCode
+    - Scope3EmissionSourceType
+    - State
+  soql_filter: WHERE External_Id__c LIKE 'waste%'
+
+
+
+Scope3CarbonFootprint:
+  sf_object: Scope3CrbnFtprnt
+  fields:
+  - AuditApprovalStatus
+  - EndDate
+  - External_ID__c
+  - FootprintStage
+  - Name
+  - ReportingDate
+  - ReportingYear
+  # - Scp3EmssnCapitalGood
+  # - Scp3EmssnDnstrmLeasedAsset
+  # - Scp3EmssnDnstrmTrnspDistr
+  # - Scp3EmssnEmployeeCommuting
+  # - Scp3EmssnEndLifeSoldProdt
+  # - Scp3EmssnFranchise
+  # - Scp3EmssnFuelEnergyActivity
+  # - Scp3EmssnInvestment
+  # - Scp3EmssnProcSoldProduct
+  # - Scp3EmssnPurchGoodsService
+  # - Scp3EmssnUpstrmTrnspDistr
+  # - Scp3EmssnUpstrmLeasedAsset
+  # - Scp3EmssnUseOfSoldProduct
+  # - Scp3WasteGenInOper
+  # - Scp3UncatgEmissions
+  - StartDate
+  - SuplScope3Emission
+  # - TotalScp3DnstrmEmissions
+  # - TotScope3EmissionsInTco2e
+  # - TotalScp3EmssnBusTrvl
+  # - TotalScp3UpstrmEmissions
+  lookups:
+    Scope3EmssnSrcId:
+      table: Scope3EmssnSrc
+  soql_filter: WHERE External_ID__c LIKE 'scope3footprint%'
+
+
+
+Scope3ProcurementSummary:
+  sf_object: Scope3PcmtSummary
+  fields:
+    - CalendarYear
+    # - CarbonFootprintReportDate
+    - CurrencyCode
+    # - InflationRateCalculated
+    - Description
+    - External_Id__c
+    # - InflationRate
+    - InflationRateOverride
+    - Name
+    # - IsRecordLocked
+    # - Scp3EmssnBusinessTravel
+    # - Scp3EmssnCapitalGood
+    # - Scp3EmssnDnstrmLeasedAsset
+    # - Scp3EmssnDnstrmTrnspDistr
+    # - ScpEmssnEmployeeCommuting
+    # - Scp3EmssnEndLifeSoldProdt
+    # - Scp3EmssnFranchise
+    # - Scp3EmssnFuelEnergyActivity
+    # - Scp3EmssnInvestment
+    # - Scp3EmssnProcSoldProduct
+    # - Scp3EmssnPurchGoodsService
+    # - Scp3EmssnUpstrmLeasedAsset
+    # - Scp3EmssnUpstrmTrnspDistr
+    # - Scp3EmssnUseOfSoldProduct
+    # - Scp3WasteGenInOper
+    # - Scp3UncatgEmissions
+    # - TotalScp3DnstrmEmissions
+    # - TotalScp3Emissions
+    # - TotalScp3UpstrmEmissions
+    # - TotalSpentAmount
+  lookups:
+    Scope3EmssnSrcId:
+      table: Scope3EmssnSrc
+    Scope3CrbnFtprntId:
+      table: Scope3CrbnFtprnt
+    PcmtEmssnFctrId:
+      table: PcmtEmssnFctrSet
+  soql_filter: WHERE External_Id__c LIKE 'ProcureSummary%'
+
+
+
+Scope3ProcurementItems:
+  sf_object: Scope3PcmtItem
+  fields:
+    - External_Id__c
+    - Name
+    - ReportDate
+    - Scope3EmissionsCalculationType
+    - VendorPrvdScope3EmssnInTco2e
+    - Scope3GhgCategory
+    - SpendingCategory1
+    - SpendingCategory2
+    - SpendingCategory3
+    - SpentAmount
+    - SpentDate
+  lookups:
+    SustainabilityScorecardId:
+      table: SustainabilityScorecard
+    SupplierId:
+      table: Supplier
+    ProcurementSummaryId:
+      table: Scope3PcmtSummary
+    PcmtEmssnFctrSetItemId:
+      table: PcmtEmssnFctrSetItem
+  soql_filter: WHERE External_Id__c Like 'ProcureItems%'
