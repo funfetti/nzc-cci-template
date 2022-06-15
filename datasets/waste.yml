@@ -1,0 +1,96 @@
+### WASTE emissions factors 
+Waste Disposal Emissions Factor Set:
+  sf_object: WstDispoEmssnFctrSet
+  fields: 
+    - Name
+    - EmissionFactorDataSource
+    - EmissionFactorUpdateYear
+  soql_filter: Id IN (Select WstDispoEmssnFctrId from GeneratedWaste)
+
+Waste Disposal Emissions Factor Set Item:
+  sf_object: WstDispoEmssnFctrSetItm
+  fields:
+    - Name
+    - DisposalType
+    - EmissionsFactorValue
+    - EmissionsFactorValueUnit
+    - WasteType
+  lookups: 
+    ParentEmissionFactorId:
+      table: WstDispoEmssnFctrSet
+  soql_filter: ParentEmissionFactorId IN (SELECT WstDispoEmssnFctrId from GeneratedWaste)
+
+# Supplier stuff
+
+Account:
+  sf_object: Account
+  fields: 
+    - Name
+  soql_filter: Id IN (Select AccountId from Supplier)
+
+Supplier:
+  sf_object: Supplier
+  fields:
+    - Name 
+    - CompanyRelationshipType
+  lookups:
+    AccountId:
+      table: Account
+  soql_filter: Id IN (Select SupplierId from GeneratedWaste)
+
+### Assets and Carbon Footprints
+
+UPSERT Stationary Asset Environmental Source: 
+  sf_object: StnryAssetEnvrSrc
+  fields:
+    - Name
+    - cci_extid__c
+  action: upsert
+  update_key: cci_extid__c
+  soql_filter: Id in (SELECT StnryAssetEnvrSrcId from GeneratedWaste)
+
+Scope 3 Carbon Footprint:
+  sf_object: Scope3CrbnFtprnt
+  fields: 
+    - Name
+    - AuditApprovalStatus
+    - EndDate
+    - FootprintStage
+    - ReportingDate
+    - ReportingYear
+    - StartDate
+    - SuplScope3Emission
+  lookups:
+    StnryAssetEnvrSrcId:
+      table: StnryAssetEnvrSrc
+    #Scope3EmssnSrcId: table: Scope3EmssnSrc
+    #AnnualEmssnInventoryId: table: AnnualEmssnInventory
+  soql_filter: Id IN (SELECT Scope3CrbnFtprntId from GeneratedWaste)
+
+## finally, generated waste
+
+Generated Waste:
+    sf_object: GeneratedWaste
+    fields: 
+        - Name
+        - Description
+        - DisposalSiteType
+        - DisposalType
+        - DisposedWasteQuantity
+        - DisposedWasteQuantityUnit
+        - EndDate
+        - IsHazardous
+        - StartDate        
+        - SuplScope1EmissionsInTco2e
+        - SuplScp3DnstrmEndLifeSoldPrdct
+        - SuplScp3UpstrmWstGenInOper
+        - WasteType
+    lookups:
+        StnryAssetEnvrSrcId:
+          table: StnryAssetEnvrSrc
+        Scope3CrbnFtprntId:
+          table: Scope3CrbnFtprnt
+        WstDispoEmssnFctrId: 
+          table: WstDispoEmssnFctrSet
+        # WasteFootprintId
+        # Scope3EmssnSrcId

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>cci_extid__c</fullName>
+    <caseSensitive>false</caseSensitive>
+    <description>CUSTOM external id field to make cumulusci data operations easier. see github.com/funfetti/nzc-cci-template for more information</description>
+    <externalId>true</externalId>
+    <label>cci_extid</label>
+    <length>255</length>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <type>Text</type>
+    <unique>true</unique>
+</CustomField>
