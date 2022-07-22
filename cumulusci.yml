@@ -47,7 +47,7 @@ tasks:
         description: Add permissions to sh scripts
         class_path: cumulusci.tasks.command.Command
         options:
-        command: chmod +x scripts/QBrix/*.sh 
+            command: chmod +x scripts/QBrix/*.sh 
 
     qbrix_manual_enable_NetZeroConfigs_configs:
         description: "Run RPA Scripts"
