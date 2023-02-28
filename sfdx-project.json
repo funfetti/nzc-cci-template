@@ -8,5 +8,5 @@
   "name": "nzc-cci-template",
   "namespace": "",
   "sfdcLoginUrl": "https://login.salesforce.com",
-  "sourceApiVersion": "54.0"
+  "sourceApiVersion": "57.0"
 }
