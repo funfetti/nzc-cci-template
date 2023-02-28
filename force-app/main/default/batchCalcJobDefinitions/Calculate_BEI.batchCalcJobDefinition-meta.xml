@@ -1,0 +1,574 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BatchCalcJobDefinition xmlns="http://soap.sforce.com/2006/04/metadata">
+    <aggregates>
+        <description>Calculates the total annual energy intensity values for each fuel type.</description>
+        <fields>
+            <aggregateFunction>Sum</aggregateFunction>
+            <alias>CalculatedAnnualEnergyIntensityInKwhSqft</alias>
+            <sourceFieldName>AnnualIntensityValueInKwhSqft</sourceFieldName>
+        </fields>
+        <groupBy>ParentId</groupBy>
+        <label>Calculate Total Annual Energy Intensity</label>
+        <name>CalculateTotalAnnualEnergyIntensity</name>
+        <sourceName>SetupBuildingEnergyIntensityValues</sourceName>
+    </aggregates>
+    <aggregates>
+        <description>Calculates the sum of the consumption intensity in kWh per square foot, the count of contribution&apos;s days, and the count of Stationary Asset Energy Use records that are being used in the calculation grouped by the fuel type.</description>
+        <fields>
+            <aggregateFunction>Count</aggregateFunction>
+            <alias>CalculatedEnergyUseRecordCount</alias>
+            <sourceFieldName>Id</sourceFieldName>
+        </fields>
+        <fields>
+            <aggregateFunction>Sum</aggregateFunction>
+            <alias>CalculatedNumberOfDaysUsedForCalc</alias>
+            <sourceFieldName>CountOfDaysWithContribution</sourceFieldName>
+        </fields>
+        <fields>
+            <aggregateFunction>Sum</aggregateFunction>
+            <alias>TotalKwhPerSqft</alias>
+            <sourceFieldName>KwhPerSqft</sourceFieldName>
+        </fields>
+        <groupBy>FuelType</groupBy>
+        <label>Calculate Totals Per Fuel Type</label>
+        <name>CalculateTotalsPerFuelType</name>
+        <sourceName>CalculateConsumptionIntensityAndCountOfDays</sourceName>
+    </aggregates>
+    <datasources>
+        <description>The Building Energy Intensity is used as a data source for the calculation.</description>
+        <fields>
+            <alias>Id</alias>
+            <name>Id</name>
+        </fields>
+        <fields>
+            <alias>Name</alias>
+            <name>Name</name>
+        </fields>
+        <label>Building Energy Intensity</label>
+        <name>BuildingEnergyIntensity</name>
+        <sourceName>BldgEnrgyIntensity</sourceName>
+        <type>StandardObject</type>
+    </datasources>
+    <datasources>
+        <description>The Building Energy Intensity Value is used as a data source for calculating Building Energy Intensity.</description>
+        <fields>
+            <alias>BuildingEnergyIntensity</alias>
+            <name>BuildingEnergyIntensityId</name>
+        </fields>
+        <fields>
+            <alias>FuelType</alias>
+            <name>FuelType</name>
+        </fields>
+        <fields>
+            <alias>Id</alias>
+            <name>Id</name>
+        </fields>
+        <label>Building Energy Intensity Values</label>
+        <name>BuildingEnergyIntensityValues</name>
+        <sourceName>BldgEnrgyIntensityVal</sourceName>
+        <type>StandardObject</type>
+    </datasources>
+    <datasources>
+        <description>The Stationary Asset Energy Use is used as a data source for calculating Building Energy Intensity.</description>
+        <fields>
+            <alias>StnryAssetEnvrSrc</alias>
+            <name>StnryAssetEnvrSrcId</name>
+        </fields>
+        <fields>
+            <alias>TotalFloorAreaInSqft</alias>
+            <name>TotalFloorAreaInSqft</name>
+        </fields>
+        <fields>
+            <alias>TotalFuelConsumptionInKwh</alias>
+            <name>TotalFuelConsumptionInKwh</name>
+        </fields>
+        <fields>
+            <alias>IsSystemGeneratedRecord</alias>
+            <name>IsSystemGeneratedRecord</name>
+        </fields>
+        <fields>
+            <alias>StationaryAssetType</alias>
+            <name>StnryAssetEnvrSrc.StationaryAssetType</name>
+        </fields>
+        <fields>
+            <alias>State</alias>
+            <name>StnryAssetEnvrSrc.State</name>
+        </fields>
+        <fields>
+            <alias>Country</alias>
+            <name>StnryAssetEnvrSrc.Country</name>
+        </fields>
+        <fields>
+            <alias>BusinessRegion</alias>
+            <name>StnryAssetEnvrSrc.BusinessRegion</name>
+        </fields>
+        <fields>
+            <alias>EndDate</alias>
+            <name>EndDate</name>
+        </fields>
+        <fields>
+            <alias>FuelType</alias>
+            <name>FuelType</name>
+        </fields>
+        <fields>
+            <alias>OccupiedFloorAreaInSqft</alias>
+            <name>OccupiedFloorAreaInSqft</name>
+        </fields>
+        <fields>
+            <alias>StartDate</alias>
+            <name>StartDate</name>
+        </fields>
+        <fields>
+            <alias>Id</alias>
+            <name>Id</name>
+        </fields>
+        <label>Stationary Asset Energy Use</label>
+        <name>StationaryAssetEnergyUse</name>
+        <sourceName>StnryAssetEnrgyUse</sourceName>
+        <type>StandardObject</type>
+    </datasources>
+    <description>Calculates the building energy intensity for commercial buildings by filtering energy use records based on reporting date range, a building size range, and general location of buildings.</description>
+    <filters>
+        <criteria>
+            <inputVariable>RecordId</inputVariable>
+            <operator>Equals</operator>
+            <sequence>1</sequence>
+            <sourceFieldName>Id</sourceFieldName>
+        </criteria>
+        <description>Return the BEI record that is being processed.</description>
+        <filterCondition>1</filterCondition>
+        <isDynamicFilter>false</isDynamicFilter>
+        <label>Filter Building Energy Intensity</label>
+        <name>FilterBuildingEnergyIntensity</name>
+        <sourceName>BuildingEnergyIntensity</sourceName>
+    </filters>
+    <filters>
+        <criteria>
+            <inputVariable>RecordId</inputVariable>
+            <operator>Equals</operator>
+            <sequence>1</sequence>
+            <sourceFieldName>BuildingEnergyIntensity</sourceFieldName>
+        </criteria>
+        <description>Retrieves the Building Energy Intensity Value records based on the Building Energy Intensity identifier for the current Building Energy Intensity record.</description>
+        <filterCondition>1</filterCondition>
+        <isDynamicFilter>false</isDynamicFilter>
+        <label>Filter Building Energy Intensity Values</label>
+        <name>FilterBuildingEnergyIntensityValues</name>
+        <sourceName>BuildingEnergyIntensityValues</sourceName>
+    </filters>
+    <filters>
+        <criteria>
+            <operator>IsNotNull</operator>
+            <sequence>1</sequence>
+            <sourceFieldName>Id</sourceFieldName>
+        </criteria>
+        <description>Retrieves only the calculated results that exist by matching the calculation results with the existing Building Energy Intensity Value records based on the fuel type.</description>
+        <filterCondition>1</filterCondition>
+        <isDynamicFilter>false</isDynamicFilter>
+        <label>Filter Existing Building Energy Intensity Value</label>
+        <name>FilterExistingBuildingEnergyIntensityValues</name>
+        <sourceName>SetupBuildingEnergyIntensityValues</sourceName>
+    </filters>
+    <filters>
+        <criteria>
+            <operator>IsNull</operator>
+            <sequence>1</sequence>
+            <sourceFieldName>Id</sourceFieldName>
+        </criteria>
+        <description>Retrieves the calculated results that don’t exist by
+matching the calculation results with the existing Building Energy Intensity Value records based on the fuel type.</description>
+        <filterCondition>1</filterCondition>
+        <isDynamicFilter>false</isDynamicFilter>
+        <label>Filter New Building Energy Intensity Value</label>
+        <name>FilterNewBuildingEnergyIntensityValue</name>
+        <sourceName>SetupBuildingEnergyIntensityValues</sourceName>
+    </filters>
+    <filters>
+        <description>Retrieves the Stationary Asset Energy Use records based on the criteria for the current Building Energy Intensity record.</description>
+        <filterParameterName>StationaryAssetEnergyUseFilterCriterion</filterParameterName>
+        <isDynamicFilter>true</isDynamicFilter>
+        <label>Filter Stationary Asset Energy Use</label>
+        <name>FilterStationaryAssetEnergyUse</name>
+        <sourceName>StationaryAssetEnergyUse</sourceName>
+    </filters>
+    <isTemplate>false</isTemplate>
+    <joins>
+        <description>Adds the building energy intensity calculated values to the building energy intensity values based on the fuel type.</description>
+        <fields>
+            <alias>BuildingEnergyIntensity</alias>
+            <sourceFieldName>BuildingEnergyIntensity</sourceFieldName>
+            <sourceName>FilterBuildingEnergyIntensityValues</sourceName>
+        </fields>
+        <fields>
+            <alias>CalculatedAnnualIntensityValueInKwhSqft</alias>
+            <sourceFieldName>CalculatedAnnualIntensityValueInKwhSqft</sourceFieldName>
+            <sourceName>CalculateAnnualIntensityValueInKwhSqftByFuelType</sourceName>
+        </fields>
+        <fields>
+            <alias>CalculatedEnergyUseRecordCount</alias>
+            <sourceFieldName>CalculatedEnergyUseRecordCount</sourceFieldName>
+            <sourceName>CalculateAnnualIntensityValueInKwhSqftByFuelType</sourceName>
+        </fields>
+        <fields>
+            <alias>CalculatedNumberOfDaysUsedForCalc</alias>
+            <sourceFieldName>CalculatedNumberOfDaysUsedForCalc</sourceFieldName>
+            <sourceName>CalculateAnnualIntensityValueInKwhSqftByFuelType</sourceName>
+        </fields>
+        <fields>
+            <alias>FuelType</alias>
+            <sourceFieldName>FuelType</sourceFieldName>
+            <sourceName>CalculateAnnualIntensityValueInKwhSqftByFuelType</sourceName>
+        </fields>
+        <fields>
+            <alias>Id</alias>
+            <sourceFieldName>Id</sourceFieldName>
+            <sourceName>FilterBuildingEnergyIntensityValues</sourceName>
+        </fields>
+        <joinKeys>
+            <primarySourceFieldName>FuelType</primarySourceFieldName>
+            <secondarySourceFieldName>FuelType</secondarySourceFieldName>
+        </joinKeys>
+        <label>Add BEI Calculated Value to Building Energy Intensity Value</label>
+        <name>AddBEICalculatedValueToBuildingEnergyIntensityValue</name>
+        <primarySourceName>CalculateAnnualIntensityValueInKwhSqftByFuelType</primarySourceName>
+        <secondarySourceName>FilterBuildingEnergyIntensityValues</secondarySourceName>
+        <type>Outer</type>
+    </joins>
+    <joins>
+        <description>Add the existing Building Energy Intensity record to the calculated one.</description>
+        <fields>
+            <alias>CalculatedAnnualEnergyIntensityInKwhSqft</alias>
+            <sourceFieldName>CalculatedAnnualEnergyIntensityInKwhSqft</sourceFieldName>
+            <sourceName>CalculateTotalAnnualEnergyIntensity</sourceName>
+        </fields>
+        <fields>
+            <alias>Id</alias>
+            <sourceFieldName>Id</sourceFieldName>
+            <sourceName>FilterBuildingEnergyIntensity</sourceName>
+        </fields>
+        <joinKeys>
+            <primarySourceFieldName>Id</primarySourceFieldName>
+            <secondarySourceFieldName>ParentId</secondarySourceFieldName>
+        </joinKeys>
+        <label>Add Calculated Building Energy Intensity</label>
+        <name>AddCalculatedBuildingEnergyIntensity</name>
+        <primarySourceName>FilterBuildingEnergyIntensity</primarySourceName>
+        <secondarySourceName>CalculateTotalAnnualEnergyIntensity</secondarySourceName>
+        <type>LeftOuter</type>
+    </joins>
+    <label>Calculate_BEI</label>
+    <parameters>
+        <dataType>Date</dataType>
+        <isMultiValue>false</isMultiValue>
+        <label>Window End Date</label>
+        <name>AveragingWindowEndDate</name>
+    </parameters>
+    <parameters>
+        <dataType>Date</dataType>
+        <isMultiValue>false</isMultiValue>
+        <label>Window Start Date</label>
+        <name>AveragingWindowStartDate</name>
+    </parameters>
+    <parameters>
+        <dataType>Text</dataType>
+        <description>The name of the Building Size Category.</description>
+        <isMultiValue>false</isMultiValue>
+        <label>Building Size Category Name</label>
+        <name>BldgSizeCategoryName</name>
+    </parameters>
+    <parameters>
+        <dataType>Text</dataType>
+        <isMultiValue>false</isMultiValue>
+        <label>Business Region</label>
+        <name>BusinessRegion</name>
+    </parameters>
+    <parameters>
+        <dataType>Text</dataType>
+        <description>The name of the country. You can enter a country only when you don’t select the business region.</description>
+        <isMultiValue>false</isMultiValue>
+        <label>Country</label>
+        <name>Country</name>
+    </parameters>
+    <parameters>
+        <dataType>Text</dataType>
+        <isMultiValue>false</isMultiValue>
+        <label>Include System Generated EUR</label>
+        <name>IncludeSystemGeneratedEUR</name>
+    </parameters>
+    <parameters>
+        <dataType>Numeric</dataType>
+        <description>The maximum size of the building in square meters. This value is used to calculate building energy intensity.</description>
+        <isMultiValue>false</isMultiValue>
+        <label>Maximum Size In Sqft</label>
+        <name>MaximumSizeInSqft</name>
+    </parameters>
+    <parameters>
+        <dataType>Numeric</dataType>
+        <description>The minimum size of the building in square feet. This value is used to calculate building energy intensity.</description>
+        <isMultiValue>false</isMultiValue>
+        <label>Minimum Size In Sqft</label>
+        <name>MinimumSizeInSqft</name>
+    </parameters>
+    <parameters>
+        <dataType>Text</dataType>
+        <isMultiValue>false</isMultiValue>
+        <label>Building Energy Intensity Id</label>
+        <name>RecordId</name>
+    </parameters>
+    <parameters>
+        <dataType>Text</dataType>
+        <isMultiValue>false</isMultiValue>
+        <label>Building Energy Intensity Name</label>
+        <name>RecordName</name>
+    </parameters>
+    <parameters>
+        <dataType>Text</dataType>
+        <description>The name of the state. You can enter a state only when you don’t select the business region and don’t enter multiple countries.</description>
+        <isMultiValue>false</isMultiValue>
+        <label>State</label>
+        <name>State</name>
+    </parameters>
+    <parameters>
+        <dataType>Filter</dataType>
+        <description>Retrieve stationary assets energy use records based on the qualifying criterion in Building Energy Intensity</description>
+        <isMultiValue>false</isMultiValue>
+        <label>Stationary Asset Energy Use Filter Criterion</label>
+        <name>StationaryAssetEnergyUseFilterCriterion</name>
+    </parameters>
+    <parameters>
+        <dataType>Text</dataType>
+        <isMultiValue>false</isMultiValue>
+        <label>Stationary Asset Type</label>
+        <name>StationaryAssetType</name>
+    </parameters>
+    <parameters>
+        <dataType>Text</dataType>
+        <description>User Id that is triggering the calculation</description>
+        <isMultiValue>false</isMultiValue>
+        <label>User Id</label>
+        <name>UserId</name>
+    </parameters>
+    <processType>NetZero</processType>
+    <status>Active</status>
+    <transforms>
+        <description>Calculates the Annual Intensity Value (kWh/sqft) value for each record for each fuel type.</description>
+        <expressionFields>
+            <alias>CalculatedAnnualIntensityValueInKwhSqft</alias>
+            <dataType>Numeric</dataType>
+            <decimalPlaces>6</decimalPlaces>
+            <expression>{TotalKwhPerSqft} / {CalculatedNumberOfDaysUsedForCalc} * 365</expression>
+            <length>12</length>
+        </expressionFields>
+        <label>Calculate Annual Intensity Value (kWh/sqft) by Fuel Type</label>
+        <name>CalculateAnnualIntensityValueInKwhSqftByFuelType</name>
+        <sourceName>CalculateTotalsPerFuelType</sourceName>
+        <transformationType>Expression</transformationType>
+    </transforms>
+    <transforms>
+        <description>Calculates the consumption intensity in kWh per square foot that a Stationary Asset Energy Use record is contributing to the Building Energy Intensity record.</description>
+        <expressionFields>
+            <alias>CountOfDaysWithContribution</alias>
+            <dataType>Numeric</dataType>
+            <decimalPlaces>0</decimalPlaces>
+            <expression>DATEDIFF({ContributionEndDate}, {ContributionStartDate} ) + 1</expression>
+            <length>6</length>
+        </expressionFields>
+        <expressionFields>
+            <alias>KwhPerSqft</alias>
+            <dataType>Numeric</dataType>
+            <decimalPlaces>6</decimalPlaces>
+            <expression>{TotalFuelConsumptionInKwh} / {OccupiedFloorAreaInSqft} / (DATEDIFF({EndDate}, {StartDate}) + 1) * (DATEDIFF({ContributionEndDate}, {ContributionStartDate}) + 1)</expression>
+            <length>12</length>
+        </expressionFields>
+        <label>Calculate Consumption Intensity and Count of Days</label>
+        <name>CalculateConsumptionIntensityAndCountOfDays</name>
+        <sourceName>CalculateEnergyConsumptionContributionDates</sourceName>
+        <transformationType>Expression</transformationType>
+    </transforms>
+    <transforms>
+        <description>Calculates the start date and end date between which to extract the energy consumption in kWh that a Stationary Asset Energy Use record is contributing to the Building Energy Intensity based on the averaging window dates.</description>
+        <expressionFields>
+            <alias>ContributionEndDate</alias>
+            <dataType>Date</dataType>
+            <expression>IF({EndDate} &gt; {$AveragingWindowEndDate},{$AveragingWindowEndDate},{EndDate})</expression>
+        </expressionFields>
+        <expressionFields>
+            <alias>ContributionStartDate</alias>
+            <dataType>Date</dataType>
+            <expression>IF({StartDate} &lt; {$AveragingWindowStartDate},{$AveragingWindowStartDate},{StartDate})</expression>
+        </expressionFields>
+        <label>Calculate Energy Consumption Contribution Dates</label>
+        <name>CalculateEnergyConsumptionContributionDates</name>
+        <sourceName>FilterStationaryAssetEnergyUse</sourceName>
+        <transformationType>Expression</transformationType>
+    </transforms>
+    <transforms>
+        <description>Save current date and time as Last Calculated Date and set the Building Size information used for the calculation.</description>
+        <expressionFields>
+            <alias>AnnualEnergyIntensityInKwhSqft</alias>
+            <dataType>Numeric</dataType>
+            <decimalPlaces>3</decimalPlaces>
+            <expression>NULLVALUE({CalculatedAnnualEnergyIntensityInKwhSqft} , 0)</expression>
+            <length>10</length>
+        </expressionFields>
+        <expressionFields>
+            <alias>BuildingSizeName</alias>
+            <dataType>Text</dataType>
+            <expression>{$BldgSizeCategoryName}</expression>
+            <length>255</length>
+        </expressionFields>
+        <expressionFields>
+            <alias>CalculatedDate</alias>
+            <dataType>DateTime</dataType>
+            <expression>NOW()</expression>
+        </expressionFields>
+        <expressionFields>
+            <alias>MaximumSizeInSqft</alias>
+            <dataType>Numeric</dataType>
+            <decimalPlaces>5</decimalPlaces>
+            <expression>{$MaximumSizeInSqft}</expression>
+            <length>13</length>
+        </expressionFields>
+        <expressionFields>
+            <alias>MinimumSizeInSqft</alias>
+            <dataType>Numeric</dataType>
+            <decimalPlaces>5</decimalPlaces>
+            <expression>{$MinimumSizeInSqft}</expression>
+            <length>13</length>
+        </expressionFields>
+        <label>Setup Building Energy Intensity</label>
+        <name>SetupBuildingEnergyIntensity</name>
+        <sourceName>AddCalculatedBuildingEnergyIntensity</sourceName>
+        <transformationType>Expression</transformationType>
+    </transforms>
+    <transforms>
+        <description>Fill BEI Values with ParentId and initialize AnnualIntensityValueInKwhSqft if not result were found.</description>
+        <expressionFields>
+            <alias>AnnualIntensityValueInKwhSqft</alias>
+            <dataType>Numeric</dataType>
+            <decimalPlaces>3</decimalPlaces>
+            <expression>NULLVALUE({CalculatedAnnualIntensityValueInKwhSqft} , 0)</expression>
+            <length>13</length>
+        </expressionFields>
+        <expressionFields>
+            <alias>EnergyUseRecordCount</alias>
+            <dataType>Numeric</dataType>
+            <decimalPlaces>0</decimalPlaces>
+            <expression>NULLVALUE({CalculatedEnergyUseRecordCount}, 0)</expression>
+            <length>5</length>
+        </expressionFields>
+        <expressionFields>
+            <alias>NumberOfDaysUsedForCalc</alias>
+            <dataType>Numeric</dataType>
+            <decimalPlaces>0</decimalPlaces>
+            <expression>NULLVALUE({CalculatedNumberOfDaysUsedForCalc}, 0)</expression>
+            <length>5</length>
+        </expressionFields>
+        <expressionFields>
+            <alias>ParentId</alias>
+            <dataType>Text</dataType>
+            <expression>{$RecordId}</expression>
+            <length>18</length>
+        </expressionFields>
+        <label>Setup Building Energy Intensity Values</label>
+        <name>SetupBuildingEnergyIntensityValues</name>
+        <sourceName>AddBEICalculatedValueToBuildingEnergyIntensityValue</sourceName>
+        <transformationType>Expression</transformationType>
+    </transforms>
+    <writebacks>
+        <description>Inserts new Building Energy Intensity Value records for the missing fuel types.</description>
+        <fields>
+            <sourceFieldName>ParentId</sourceFieldName>
+            <targetFieldName>BuildingEnergyIntensityId</targetFieldName>
+        </fields>
+        <fields>
+            <sourceFieldName>FuelType</sourceFieldName>
+            <targetFieldName>FuelType</targetFieldName>
+        </fields>
+        <fields>
+            <sourceFieldName>AnnualIntensityValueInKwhSqft</sourceFieldName>
+            <targetFieldName>AnnualIntensityValueInKwhSqft</targetFieldName>
+        </fields>
+        <fields>
+            <sourceFieldName>NumberOfDaysUsedForCalc</sourceFieldName>
+            <targetFieldName>NumberOfDaysUsedForCalc</targetFieldName>
+        </fields>
+        <fields>
+            <sourceFieldName>EnergyUseRecordCount</sourceFieldName>
+            <targetFieldName>EnergyUseRecordCount</targetFieldName>
+        </fields>
+        <isChangedRow>false</isChangedRow>
+        <label>Insert Building Energy Intensity Value for Missing Fuel Type</label>
+        <name>InsertBuildingEnergyIntensityValueForMissingFuelType</name>
+        <operationType>Insert</operationType>
+        <sourceName>FilterNewBuildingEnergyIntensityValue</sourceName>
+        <storageType>sObject</storageType>
+        <targetObjectName>BldgEnrgyIntensityVal</targetObjectName>
+        <writebackSequence>1</writebackSequence>
+        <writebackUser>0058N000002O9IkQAK</writebackUser>
+    </writebacks>
+    <writebacks>
+        <description>Updates the calculated value for the Annual Energy Intensity (Kwh/Sqft/Year) field and sets the value for the date when values were last calculated.</description>
+        <fields>
+            <sourceFieldName>MinimumSizeInSqft</sourceFieldName>
+            <targetFieldName>MinimumBuildingSizeInSqft</targetFieldName>
+        </fields>
+        <fields>
+            <sourceFieldName>MaximumSizeInSqft</sourceFieldName>
+            <targetFieldName>MaximumBuildingSizeInSqft</targetFieldName>
+        </fields>
+        <fields>
+            <sourceFieldName>Id</sourceFieldName>
+            <targetFieldName>Id</targetFieldName>
+        </fields>
+        <fields>
+            <sourceFieldName>AnnualEnergyIntensityInKwhSqft</sourceFieldName>
+            <targetFieldName>AnnualEnergyIntensityInKwhSqft</targetFieldName>
+        </fields>
+        <fields>
+            <sourceFieldName>CalculatedDate</sourceFieldName>
+            <targetFieldName>LastCalculatedDate</targetFieldName>
+        </fields>
+        <fields>
+            <sourceFieldName>BuildingSizeName</sourceFieldName>
+            <targetFieldName>BuildingSize</targetFieldName>
+        </fields>
+        <isChangedRow>false</isChangedRow>
+        <label>Update Building Energy Intensity</label>
+        <name>UpdateBuildingEnergyIntensity</name>
+        <operationType>Update</operationType>
+        <sourceName>SetupBuildingEnergyIntensity</sourceName>
+        <storageType>sObject</storageType>
+        <targetObjectName>BldgEnrgyIntensity</targetObjectName>
+        <writebackSequence>3</writebackSequence>
+        <writebackUser>0058N000002O9IkQAK</writebackUser>
+    </writebacks>
+    <writebacks>
+        <description>Updates the value for the Annual Intensity Value (Kwh/sqft) field, the Number of Days Used For Calculation field, and the Energy Use Record Count field for existing Building Energy Intensity Value records.</description>
+        <fields>
+            <sourceFieldName>Id</sourceFieldName>
+            <targetFieldName>Id</targetFieldName>
+        </fields>
+        <fields>
+            <sourceFieldName>AnnualIntensityValueInKwhSqft</sourceFieldName>
+            <targetFieldName>AnnualIntensityValueInKwhSqft</targetFieldName>
+        </fields>
+        <fields>
+            <sourceFieldName>NumberOfDaysUsedForCalc</sourceFieldName>
+            <targetFieldName>NumberOfDaysUsedForCalc</targetFieldName>
+        </fields>
+        <fields>
+            <sourceFieldName>EnergyUseRecordCount</sourceFieldName>
+            <targetFieldName>EnergyUseRecordCount</targetFieldName>
+        </fields>
+        <isChangedRow>false</isChangedRow>
+        <label>Update Building Energy Intensity Value</label>
+        <name>UpdateBuildingEnergyIntensityValue</name>
+        <operationType>Update</operationType>
+        <sourceName>FilterExistingBuildingEnergyIntensityValues</sourceName>
+        <storageType>sObject</storageType>
+        <targetObjectName>BldgEnrgyIntensityVal</targetObjectName>
+        <writebackSequence>2</writebackSequence>
+        <writebackUser>0058N000002O9IkQAK</writebackUser>
+    </writebacks>
+</BatchCalcJobDefinition>
