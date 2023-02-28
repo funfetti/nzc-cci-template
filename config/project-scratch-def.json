@@ -1,7 +1,7 @@
 {
   "orgName": "net zero growth scratch",
   "edition": "Enterprise",
-  "adminEmail": "YOUREMAILHERE@DOMAIN.COM",
+  "adminEmail": "n.hughes@salesforce.com",
   "features": [
     "EnableSetPasswordInApi",
     "Communities",
