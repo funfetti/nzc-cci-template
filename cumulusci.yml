@@ -123,7 +123,7 @@ flows:
             2:
                 task: assign_permission_sets
                 options:
-                    api_names: NetZeroManager, DataProcessingEngineUser, ManufacturingAdvancedAccountForecastPsl
+                    api_names: NetZeroManager, DataProcessingEngineUser, ManufacturingAdvancedAccountForecastPsl, EinsteinAnalyticsPlusAdmin, TCRMforSustainabilityAdmin
             3: # turning on Net Zero Setup toggles
                 task: dx
                 options:
