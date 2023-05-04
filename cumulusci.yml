@@ -3,7 +3,7 @@ project:
     name: nzc-cci-template
     package:
         name: pkg
-        api_version: '54.0'
+        api_version: '57.0'
     git:
         default_branch: 'main'
     source_format: sfdx
@@ -101,6 +101,14 @@ tasks:
             mapping: datasets/waste.yml
             sql_path: datasets/db_waste.sql
 
+    load_scope3procurement:
+        description: Loads DATA for Scope 3 Procurement Sets/Items, Procurement EFs, Suppliers, Inflation rates, and other Scope 3 objects
+        class_path: cumulusci.tasks.bulkdata.LoadData
+        group: nzcData
+        options: 
+            mapping: datasets/scope3procurement.yml
+            sql_path: datasets/db_procurement.sql
+
 flows:
     extract_record_type:
         group: data
@@ -119,11 +127,11 @@ flows:
             1:
                 task: assign_permission_set_licenses
                 options:
-                    api_names: NetZeroCloudUserPsl, DataProcessingEnginePsl, ManufacturingAdvancedAccountForecastPsl
+                    api_names: NetZeroCloudUserPsl, DataProcessingEnginePsl, ManufacturingAdvancedAccountForecastPsl, TCRMforSustainabilityPsl, EinsteinAnalyticsPlusPsl
             2:
                 task: assign_permission_sets
                 options:
-                    api_names: NetZeroManager, DataProcessingEngineUser, ManufacturingAdvancedAccountForecastPsl
+                    api_names: NetZeroManager, DataProcessingEngineUser, ManufacturingAdvancedAccountForecastPsl, EinsteinAnalyticsPlusAdmin, TCRMforSustainabilityAdmin
             3: # turning on Net Zero Setup toggles
                 task: dx
                 options:

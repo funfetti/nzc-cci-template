@@ -11,7 +11,11 @@
     <enableSCGenrateCnsmpRcd>false</enableSCGenrateCnsmpRcd>
     <enableSCScope3HubEnabled>true</enableSCScope3HubEnabled>
     <enableSCSplitCnsmpRcd>false</enableSCSplitCnsmpRcd>
-    <enableSCTargetSetting>false</enableSCTargetSetting>
+    <enableSCTargetSetting>true</enableSCTargetSetting>
     <enableSCWasteManagement>true</enableSCWasteManagement>
     <enableSustainabilityCloud>true</enableSustainabilityCloud>
+    <enableSCCarbonCreditAlloc>true</enableSCCarbonCreditAlloc>
+    <enableSCWaterManagement>true</enableSCWaterManagement>
+    <enableSCExpansionUseCase>true</enableSCExpansionUseCase>
+    <enableSCSNGManagement>true</enableSCSNGManagement>
 </IndustriesSettings>

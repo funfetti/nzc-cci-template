@@ -136,6 +136,20 @@ Scope3CarbonFootprint:
 
 
 
+InflationRate:
+  sf_object: InflationRate
+  fields:
+    - External_Id__c
+    # - Name
+    - CalendarYear
+    - CurrencyCode
+    - DataSource
+    - InflationRate
+    # - InflationRateUnqKeyIdentifier
+  soql_filter: WHERE External_Id__c LIKE 'Inflation%'
+
+
+
 Scope3ProcurementSummary:
   sf_object: Scope3PcmtSummary
   fields:
@@ -185,7 +199,7 @@ Scope3ProcurementItems:
   fields:
     - External_Id__c
     - Name
-    - ReportDate
+    # - ReportDate
     - Scope3EmissionsCalculationType
     - VendorPrvdScope3EmssnInTco2e
     - Scope3GhgCategory
